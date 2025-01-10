@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import FadeIn from '@/components/animations/FadeIn'
 import ParallaxScroll from '@/components/animations/ParallaxScroll'
+import ScrollAnimation from '@/components/animations/ScrollAnimation'
 import Button from '@/components/ui/Button'
 import dynamic from 'next/dynamic'
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -76,43 +77,58 @@ const processSteps = [
     }
 ]
 
-const ServiceCard = React.memo(({ service, index }: { service: typeof services[0], index: number }) => (
+// Add a new StaggerItem component for staggered animations
+const StaggerItem = ({ children }: { children: React.ReactNode }) => (
     <motion.div
-        className="relative flex-shrink-0 w-[400px]"
-        whileHover={{ scale: 1.02 }}
-        transition={{ duration: 0.3 }}
+        variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0 }
+        }}
     >
-        <div className="bg-white p-8 rounded-lg shadow-sm h-full">
-            <motion.div
-                className="relative h-64 mb-6 rounded-lg overflow-hidden"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-            >
-                <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 400px"
-                    loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                        <h3 className="text-2xl font-light text-white">{service.title}</h3>
-                    </div>
-                </div>
-            </motion.div>
-            <p className="text-gray-600 mb-6">{service.description}</p>
-            <ul className="space-y-2">
-                {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center gap-2 text-gray-600">
-                        <span className="w-1.5 h-1.5 bg-black rounded-full"></span>
-                        {feature}
-                    </li>
-                ))}
-            </ul>
-        </div>
+        {children}
     </motion.div>
+);
+
+// Update the ServiceCard component
+const ServiceCard = React.memo(({ service, index }: { service: typeof services[0], index: number }) => (
+    <ScrollAnimation variant="elastic" delay={index * 0.1}>
+        <motion.div
+            className="relative flex-shrink-0 w-[400px]"
+            whileHover={{ scale: 1.05, y: -10 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+        >
+            <div className="bg-white p-8 rounded-lg shadow-sm h-full">
+                <motion.div
+                    className="relative h-64 mb-6 rounded-lg overflow-hidden"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                >
+                    <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 400px"
+                        loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
+                        <div className="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 className="text-2xl font-light text-white">{service.title}</h3>
+                        </div>
+                    </div>
+                </motion.div>
+                <p className="text-gray-600 mb-6">{service.description}</p>
+                <ul className="space-y-2">
+                    {service.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center gap-2 text-gray-600">
+                            <span className="w-1.5 h-1.5 bg-black rounded-full"></span>
+                            {feature}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </motion.div>
+    </ScrollAnimation>
 ));
 
 export default function Home() {
@@ -230,12 +246,10 @@ export default function Home() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 1.5 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
                         />
                     </div>
                     <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4">
-                        <FadeIn>
+                        <ScrollAnimation variant="bounce">
                             <h1 className="text-5xl sm:text-6xl md:text-7xl font-light mb-6 text-center">
                                 Pour L'Intérieur
                             </h1>
@@ -243,20 +257,30 @@ export default function Home() {
                                 Experts en rénovation et architecture d'intérieur à Paris
                             </p>
                             <div className="flex flex-wrap justify-center gap-4">
-                                <Button
-                                    onClick={() => router.push('/services')}
-                                    variant="primary"
+                                <motion.div
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
                                 >
-                                    Découvrir nos services
-                                </Button>
-                                <Button
-                                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                                    variant="outline"
+                                    <Button
+                                        onClick={() => router.push('/services')}
+                                        variant="primary"
+                                    >
+                                        Découvrir nos services
+                                    </Button>
+                                </motion.div>
+                                <motion.div
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
                                 >
-                                    Nous contacter
-                                </Button>
+                                    <Button
+                                        onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                                        variant="outline"
+                                    >
+                                        Nous contacter
+                                    </Button>
+                                </motion.div>
                             </div>
-                        </FadeIn>
+                        </ScrollAnimation>
                     </div>
                 </section>
 
@@ -264,7 +288,7 @@ export default function Home() {
                 <section className="py-20 bg-white">
                     <div className="max-w-7xl mx-auto px-4">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                            <FadeIn>
+                            <ScrollAnimation variant="slideLeft">
                                 <div>
                                     <h2 className="text-4xl font-light mb-6">Une Expertise Reconnue</h2>
                                     <p className="text-xl text-gray-600 mb-8">
@@ -276,28 +300,32 @@ export default function Home() {
                                         <span className="ml-2">→</span>
                                     </Button>
                                 </div>
-                            </FadeIn>
+                            </ScrollAnimation>
                             <div className="grid grid-cols-2 gap-4">
-                                <ParallaxScroll offset={20}>
-                                    <div className="relative h-[300px]">
-                                        <Image
-                                            src="/moulure.jpeg"
-                                            alt="Interior Design"
-                                            fill
-                                            className="object-cover rounded-lg"
-                                        />
-                                    </div>
-                                </ParallaxScroll>
-                                <ParallaxScroll offset={40}>
-                                    <div className="relative h-[300px] mt-8">
-                                        <Image
-                                            src="/peinture.jpeg"
-                                            alt="Interior Design"
-                                            fill
-                                            className="object-cover rounded-lg"
-                                        />
-                                    </div>
-                                </ParallaxScroll>
+                                <ScrollAnimation variant="slideRight" delay={0.2}>
+                                    <ParallaxScroll offset={20}>
+                                        <div className="relative h-[300px]">
+                                            <Image
+                                                src="/moulure.jpeg"
+                                                alt="Interior Design"
+                                                fill
+                                                className="object-cover rounded-lg"
+                                            />
+                                        </div>
+                                    </ParallaxScroll>
+                                </ScrollAnimation>
+                                <ScrollAnimation variant="slideRight" delay={0.4}>
+                                    <ParallaxScroll offset={40}>
+                                        <div className="relative h-[300px] mt-8">
+                                            <Image
+                                                src="/peinture.jpeg"
+                                                alt="Interior Design"
+                                                fill
+                                                className="object-cover rounded-lg"
+                                            />
+                                        </div>
+                                    </ParallaxScroll>
+                                </ScrollAnimation>
                             </div>
                         </div>
                     </div>
@@ -358,11 +386,11 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* Process Section with Team Image */}
+                {/* Process Section */}
                 <section className="py-20 bg-white">
                     <div className="max-w-7xl mx-auto px-4">
-                        <div className="mb-20">
-                            <FadeIn>
+                        <ScrollAnimation variant="flip">
+                            <div className="mb-20">
                                 <div className="relative h-[400px] rounded-lg overflow-hidden">
                                     <Image
                                         src="/samson_team .jpeg"
@@ -374,33 +402,32 @@ export default function Home() {
                                         quality={75}
                                     />
                                 </div>
-                            </FadeIn>
-                        </div>
-                        <FadeIn>
+                            </div>
+                        </ScrollAnimation>
+                        <ScrollAnimation variant="rotate">
                             <h2 className="text-4xl font-light mb-16 text-center">Notre Processus</h2>
-                        </FadeIn>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                            {processSteps.map((step, index) => (
-                                <FadeIn key={index} delay={index * 0.2}>
-                                    <div className="relative">
-                                        <motion.div
-                                            className="text-6xl font-light text-gray-200 mb-4"
-                                            initial={{ opacity: 0, x: -20 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 0.5, delay: index * 0.2 }}
-                                        >
-                                            {step.number}
-                                        </motion.div>
-                                        <h3 className="text-2xl font-light mb-4">{step.title}</h3>
-                                        <p className="text-gray-600">{step.description}</p>
-                                        {index < processSteps.length - 1 && (
-                                            <div className="hidden lg:block absolute top-8 right-0 w-full h-0.5 bg-gray-200 -z-10"></div>
-                                        )}
-                                    </div>
-                                </FadeIn>
-                            ))}
-                        </div>
+                        </ScrollAnimation>
+                        <ScrollAnimation variant="stagger" staggerChildren={0.2}>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                                {processSteps.map((step, index) => (
+                                    <StaggerItem key={index}>
+                                        <div className="relative">
+                                            <motion.div
+                                                className="text-6xl font-light text-gray-200 mb-4"
+                                                whileHover={{ scale: 1.1, color: "#000" }}
+                                            >
+                                                {step.number}
+                                            </motion.div>
+                                            <h3 className="text-2xl font-light mb-4">{step.title}</h3>
+                                            <p className="text-gray-600">{step.description}</p>
+                                            {index < processSteps.length - 1 && (
+                                                <div className="hidden lg:block absolute top-8 right-0 w-full h-0.5 bg-gray-200 -z-10"></div>
+                                            )}
+                                        </div>
+                                    </StaggerItem>
+                                ))}
+                            </div>
+                        </ScrollAnimation>
                     </div>
                 </section>
 
@@ -495,13 +522,13 @@ export default function Home() {
                 {/* Contact Section */}
                 <section id="contact" className="py-20 bg-white">
                     <div className="max-w-4xl mx-auto px-4">
-                        <FadeIn>
+                        <ScrollAnimation variant="slideUp">
                             <h2 className="text-4xl font-light mb-6 text-center">Contactez-nous</h2>
                             <p className="text-xl text-gray-600 mb-12 text-center">
                                 Parlons de votre projet et transformons vos idées en réalité
                             </p>
-                        </FadeIn>
-                        <FadeIn delay={0.2}>
+                        </ScrollAnimation>
+                        <ScrollAnimation variant="scale" delay={0.2}>
                             {formStatus.type && (
                                 <motion.div
                                     initial={{ opacity: 0, y: -10 }}
@@ -522,7 +549,8 @@ export default function Home() {
                                         placeholder="Prénom"
                                         required
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black disabled:bg-gray-100"
-                                        whileFocus={{ scale: 1.01 }}
+                                        whileFocus={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
                                         disabled={isSubmitting}
                                     />
                                     <motion.input
@@ -531,7 +559,8 @@ export default function Home() {
                                         placeholder="Nom"
                                         required
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black disabled:bg-gray-100"
-                                        whileFocus={{ scale: 1.01 }}
+                                        whileFocus={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
                                         disabled={isSubmitting}
                                     />
                                 </div>
@@ -541,7 +570,8 @@ export default function Home() {
                                     placeholder="Email"
                                     required
                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black disabled:bg-gray-100"
-                                    whileFocus={{ scale: 1.01 }}
+                                    whileFocus={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
                                     disabled={isSubmitting}
                                 />
                                 <motion.input
@@ -549,7 +579,8 @@ export default function Home() {
                                     name="phone"
                                     placeholder="Téléphone"
                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black disabled:bg-gray-100"
-                                    whileFocus={{ scale: 1.01 }}
+                                    whileFocus={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
                                     disabled={isSubmitting}
                                 />
                                 <motion.textarea
@@ -558,7 +589,8 @@ export default function Home() {
                                     required
                                     rows={6}
                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black disabled:bg-gray-100"
-                                    whileFocus={{ scale: 1.01 }}
+                                    whileFocus={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
                                     disabled={isSubmitting}
                                 />
                                 <Button
@@ -569,12 +601,14 @@ export default function Home() {
                                     {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
                                 </Button>
                             </form>
-                        </FadeIn>
+                        </ScrollAnimation>
                     </div>
                 </section>
 
                 {/* Contact Banner */}
-                <ContactBanner />
+                <ScrollAnimation variant="elastic">
+                    <ContactBanner />
+                </ScrollAnimation>
             </main>
         </>
     )
