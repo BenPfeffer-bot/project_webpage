@@ -1,13 +1,19 @@
 'use client'
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, Suspense } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import FadeIn from '@/components/animations/FadeIn'
 import ParallaxScroll from '@/components/animations/ParallaxScroll'
 import Button from '@/components/ui/Button'
-import ContactBanner from '@/components/layout/ContactBanner'
+import dynamic from 'next/dynamic'
 import { SpeedInsights } from "@vercel/speed-insights/next"
+
+const ContactBanner = dynamic(() => import('@/components/layout/ContactBanner'), {
+    loading: () => <div className="h-40 bg-gray-100" />,
+    ssr: false
+})
+
 const services = [
     {
         title: 'Rénovation Complète',
@@ -70,6 +76,45 @@ const processSteps = [
     }
 ]
 
+const ServiceCard = React.memo(({ service, index }: { service: typeof services[0], index: number }) => (
+    <motion.div
+        className="relative flex-shrink-0 w-[400px]"
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.3 }}
+    >
+        <div className="bg-white p-8 rounded-lg shadow-sm h-full">
+            <motion.div
+                className="relative h-64 mb-6 rounded-lg overflow-hidden"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+            >
+                <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 className="text-2xl font-light text-white">{service.title}</h3>
+                    </div>
+                </div>
+            </motion.div>
+            <p className="text-gray-600 mb-6">{service.description}</p>
+            <ul className="space-y-2">
+                {service.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-gray-600">
+                        <span className="w-1.5 h-1.5 bg-black rounded-full"></span>
+                        {feature}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </motion.div>
+));
+
 export default function Home() {
     const [width, setWidth] = React.useState(0)
     const [isDragging, setIsDragging] = React.useState(false)
@@ -116,6 +161,8 @@ export default function Home() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        if (isSubmitting) return;
+
         setIsSubmitting(true)
         setFormStatus({ type: null, message: null })
 
@@ -128,13 +175,19 @@ export default function Home() {
         }
 
         try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
             const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data),
+                signal: controller.signal
             })
+
+            clearTimeout(timeoutId);
 
             const responseData = await response.json()
 
@@ -142,7 +195,6 @@ export default function Home() {
                 throw new Error(responseData.error || 'Une erreur est survenue')
             }
 
-            // Clear form
             e.currentTarget.reset()
             setFormStatus({
                 type: 'success',
@@ -170,12 +222,16 @@ export default function Home() {
                             fill
                             className="object-cover"
                             priority
+                            sizes="100vw"
+                            quality={75}
                         />
                         <motion.div
                             className="absolute inset-0 bg-black/40"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 1.5 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
                         />
                     </div>
                     <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4">
@@ -266,87 +322,20 @@ export default function Home() {
                                 onDragStart={() => setIsDragging(true)}
                                 onDragEnd={() => {
                                     setIsDragging(false)
-                                    // Reset position if dragged too far
                                     if (-position >= width) {
                                         setPosition(0)
                                     }
                                 }}
+                                whileInView={{ x: position }}
+                                viewport={{ once: false }}
                             >
                                 {/* First set of services */}
                                 {services.map((service, index) => (
-                                    <motion.div
-                                        key={`first-${index}`}
-                                        className="relative flex-shrink-0 w-[400px]"
-                                        whileHover={{ scale: 1.02 }}
-                                        transition={{ duration: 0.3 }}
-                                    >
-                                        <div className="bg-white p-8 rounded-lg shadow-sm h-full">
-                                            <motion.div
-                                                className="relative h-64 mb-6 rounded-lg overflow-hidden"
-                                                whileHover={{ scale: 1.05 }}
-                                                transition={{ duration: 0.3 }}
-                                            >
-                                                <Image
-                                                    src={service.image}
-                                                    alt={service.title}
-                                                    fill
-                                                    className="object-cover"
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
-                                                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                                                        <h3 className="text-2xl font-light text-white">{service.title}</h3>
-                                                    </div>
-                                                </div>
-                                            </motion.div>
-                                            <p className="text-gray-600 mb-6">{service.description}</p>
-                                            <ul className="space-y-2">
-                                                {service.features.map((feature, idx) => (
-                                                    <li key={idx} className="flex items-center gap-2 text-gray-600">
-                                                        <span className="w-1.5 h-1.5 bg-black rounded-full"></span>
-                                                        {feature}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    </motion.div>
+                                    <ServiceCard key={`first-${index}`} service={service} index={index} />
                                 ))}
                                 {/* Second set of services for infinite scroll */}
                                 {services.map((service, index) => (
-                                    <motion.div
-                                        key={`second-${index}`}
-                                        className="relative flex-shrink-0 w-[400px]"
-                                        whileHover={{ scale: 1.02 }}
-                                        transition={{ duration: 0.3 }}
-                                    >
-                                        <div className="bg-white p-8 rounded-lg shadow-sm h-full">
-                                            <motion.div
-                                                className="relative h-64 mb-6 rounded-lg overflow-hidden"
-                                                whileHover={{ scale: 1.05 }}
-                                                transition={{ duration: 0.3 }}
-                                            >
-                                                <Image
-                                                    src={service.image}
-                                                    alt={service.title}
-                                                    fill
-                                                    className="object-cover"
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
-                                                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                                                        <h3 className="text-2xl font-light text-white">{service.title}</h3>
-                                                    </div>
-                                                </div>
-                                            </motion.div>
-                                            <p className="text-gray-600 mb-6">{service.description}</p>
-                                            <ul className="space-y-2">
-                                                {service.features.map((feature, idx) => (
-                                                    <li key={idx} className="flex items-center gap-2 text-gray-600">
-                                                        <span className="w-1.5 h-1.5 bg-black rounded-full"></span>
-                                                        {feature}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    </motion.div>
+                                    <ServiceCard key={`second-${index}`} service={service} index={index} />
                                 ))}
                             </motion.div>
 
@@ -380,6 +369,9 @@ export default function Home() {
                                         alt="Notre équipe"
                                         fill
                                         className="object-cover"
+                                        sizes="(max-width: 1280px) 100vw, 1280px"
+                                        loading="lazy"
+                                        quality={75}
                                     />
                                 </div>
                             </FadeIn>
