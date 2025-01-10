@@ -21,7 +21,7 @@ const services = [
     {
         title: 'Architecture d\'Intérieur',
         description: 'Conception et optimisation de vos espaces pour un agencement parfait et fonctionnel.',
-        image: '/renov_2.jpeg',
+        image: '/renov_2.jpg',
         features: ['Plans 3D', 'Études techniques', 'Conseils matériaux', 'Suivi de projet'],
         longDescription: 'Notre expertise en architecture d\'intérieur vous permet de repenser intégralement vos espaces. Nous créons des plans détaillés et des visualisations 3D pour vous aider à projeter votre futur intérieur, tout en optimisant chaque mètre carré pour un résultat à la fois esthétique et fonctionnel.'
     },

@@ -92,7 +92,7 @@ const processSteps = [
     {
         title: 'Planification',
         description: 'Élaboration d\'un plan d\'action précis',
-        image: '/renov_2.jpeg',
+        image: '/renov_2.jpg',
         icon: '📋'
     },
     {

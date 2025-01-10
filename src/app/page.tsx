@@ -25,7 +25,7 @@ const services = [
     {
         title: 'Architecture d\'Intérieur',
         description: 'Conception et optimisation de vos espaces pour un agencement parfait et fonctionnel.',
-        image: '/renov_2.jpeg',
+        image: '/renov_2.jpg',
         features: ['Plans 3D', 'Études techniques', 'Conseils matériaux', 'Suivi de projet']
     },
     {
