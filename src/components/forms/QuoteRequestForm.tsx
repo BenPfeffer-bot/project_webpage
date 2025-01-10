@@ -64,115 +64,103 @@ export default function QuoteRequestForm({ onClose, service }: QuoteRequestFormP
     }
 
     return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 overflow-y-auto">
-            <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                className="bg-white rounded-xl p-6 w-full max-w-2xl my-8"
-            >
-                <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-light">Demande de devis{service ? ` - ${service}` : ''}</h2>
-                    <button
-                        onClick={onClose}
-                        className="text-gray-500 hover:text-gray-700 transition-colors"
-                        disabled={isSubmitting}
-                    >
-                        <XMarkIcon className="h-6 w-6" />
-                    </button>
-                </div>
+        <div className="max-w-3xl mx-auto w-full p-6 sm:p-8 md:p-10">
+            <div className="flex justify-between items-center mb-8">
+                <h2 className="text-2xl sm:text-3xl font-light">
+                    Demande de devis{service ? ` - ${service}` : ''}
+                </h2>
+            </div>
 
-                {formStatus.type && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className={`mb-6 p-4 rounded-lg ${formStatus.type === 'success'
-                                ? 'bg-green-50 text-green-600'
-                                : 'bg-red-50 text-red-600'
-                            }`}
-                    >
-                        {formStatus.message}
-                    </motion.div>
-                )}
+            {formStatus.type && (
+                <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`mb-8 p-4 rounded-lg ${formStatus.type === 'success'
+                        ? 'bg-green-50 text-green-600'
+                        : 'bg-red-50 text-red-600'
+                        }`}
+                >
+                    {formStatus.message}
+                </motion.div>
+            )}
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <motion.input
-                            type="text"
-                            name="firstName"
-                            placeholder="Prénom"
-                            required
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black disabled:bg-gray-100"
-                            whileFocus={{ scale: 1.01 }}
-                            disabled={isSubmitting}
-                        />
-                        <motion.input
-                            type="text"
-                            name="lastName"
-                            placeholder="Nom"
-                            required
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black disabled:bg-gray-100"
-                            whileFocus={{ scale: 1.01 }}
-                            disabled={isSubmitting}
-                        />
-                    </div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <motion.input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
+                        type="text"
+                        name="firstName"
+                        placeholder="Prénom"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black disabled:bg-gray-100"
-                        whileFocus={{ scale: 1.01 }}
-                        disabled={isSubmitting}
-                    />
-                    <motion.input
-                        type="tel"
-                        name="phone"
-                        placeholder="Téléphone"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black disabled:bg-gray-100"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent disabled:bg-gray-100"
                         whileFocus={{ scale: 1.01 }}
                         disabled={isSubmitting}
                     />
                     <motion.input
                         type="text"
-                        name="location"
-                        placeholder="Localisation"
+                        name="lastName"
+                        placeholder="Nom"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black disabled:bg-gray-100"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent disabled:bg-gray-100"
                         whileFocus={{ scale: 1.01 }}
                         disabled={isSubmitting}
                     />
-                    <motion.textarea
-                        name="request"
-                        placeholder="Décrivez votre projet"
-                        required
-                        rows={6}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black disabled:bg-gray-100"
-                        whileFocus={{ scale: 1.01 }}
+                </div>
+                <motion.input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent disabled:bg-gray-100"
+                    whileFocus={{ scale: 1.01 }}
+                    disabled={isSubmitting}
+                />
+                <motion.input
+                    type="tel"
+                    name="phone"
+                    placeholder="Téléphone"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent disabled:bg-gray-100"
+                    whileFocus={{ scale: 1.01 }}
+                    disabled={isSubmitting}
+                />
+                <motion.input
+                    type="text"
+                    name="location"
+                    placeholder="Localisation"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent disabled:bg-gray-100"
+                    whileFocus={{ scale: 1.01 }}
+                    disabled={isSubmitting}
+                />
+                <motion.textarea
+                    name="request"
+                    placeholder="Décrivez votre projet"
+                    required
+                    rows={6}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent disabled:bg-gray-100 resize-none"
+                    whileFocus={{ scale: 1.01 }}
+                    disabled={isSubmitting}
+                    defaultValue={service ? `Je souhaite un devis pour ${service}` : ''}
+                />
+                <div className="flex flex-col sm:flex-row justify-end gap-4 pt-4">
+                    <Button
+                        type="button"
+                        variant="outline"
+                        onClick={onClose}
                         disabled={isSubmitting}
-                        defaultValue={service ? `Je souhaite un devis pour ${service}` : ''}
-                    />
-                    <div className="flex flex-col sm:flex-row justify-end gap-4">
-                        <Button
-                            type="button"
-                            variant="outline"
-                            onClick={onClose}
-                            disabled={isSubmitting}
-                            className="w-full sm:w-auto"
-                        >
-                            Annuler
-                        </Button>
-                        <Button
-                            type="submit"
-                            variant="primary"
-                            disabled={isSubmitting}
-                            className="w-full sm:w-auto"
-                        >
-                            {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
-                        </Button>
-                    </div>
-                </form>
-            </motion.div>
+                        className="w-full sm:w-auto order-2 sm:order-1"
+                    >
+                        Annuler
+                    </Button>
+                    <Button
+                        type="submit"
+                        variant="primary"
+                        disabled={isSubmitting}
+                        className="w-full sm:w-auto order-1 sm:order-2"
+                    >
+                        {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
+                    </Button>
+                </div>
+            </form>
         </div>
     )
 } 
