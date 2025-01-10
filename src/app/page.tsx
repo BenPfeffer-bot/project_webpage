@@ -194,7 +194,7 @@ export default function Home() {
                                     Découvrir nos services
                                 </Button>
                                 <Button
-                                    onClick={() => router.push('/contact')}
+                                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                                     variant="outline"
                                 >
                                     Nous contacter
