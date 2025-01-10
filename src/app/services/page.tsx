@@ -57,6 +57,7 @@ const services = [
 export default function Services() {
     const [selectedService, setSelectedService] = useState<string | null>(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [activeCategory, setActiveCategory] = useState('all')
     const servicesRef = useRef<HTMLDivElement>(null)
     const isInView = useInView(servicesRef, { once: true, margin: "-10%" })
 
@@ -70,7 +71,7 @@ export default function Services() {
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.2
+                staggerChildren: 0.15
             }
         }
     }
@@ -86,6 +87,17 @@ export default function Services() {
             }
         }
     }
+
+    const categories = ['all', 'design', 'construction', 'finition']
+    const getServiceCategory = (index: number) => {
+        if (index < 3) return 'design'
+        if (index < 5) return 'finition'
+        return 'construction'
+    }
+
+    const filteredServices = services.filter(
+        (_, index) => activeCategory === 'all' || getServiceCategory(index) === activeCategory
+    )
 
     return (
         <motion.main
@@ -125,165 +137,106 @@ export default function Services() {
                 </div>
             </section>
 
+            {/* Category Filter */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 mb-12">
+                <div className="flex flex-wrap justify-center gap-4">
+                    {categories.map((category) => (
+                        <button
+                            key={category}
+                            onClick={() => setActiveCategory(category)}
+                            className={`px-6 py-2 rounded-full text-sm sm:text-base transition-all duration-300 ${activeCategory === category
+                                ? 'bg-navy-dark text-white'
+                                : 'bg-gray-100 hover:bg-gray-200'
+                                }`}
+                        >
+                            {category.charAt(0).toUpperCase() + category.slice(1)}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
             {/* Services Grid */}
             <section
                 ref={servicesRef}
                 className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8"
             >
                 <motion.div
-                    className="grid grid-cols-1 gap-12 sm:gap-16 md:gap-20"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 md:gap-12"
                     variants={containerVariants}
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
                 >
-                    {services.map((service, index) => (
+                    {filteredServices.map((service, index) => (
                         <motion.div
                             key={service.title}
                             variants={itemVariants}
-                            className={`grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-                                }`}
+                            className="flex flex-col bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                            style={{ minHeight: '550px' }}
                         >
-                            <div className="relative group">
-                                <motion.div
-                                    className="relative h-[300px] sm:h-[350px] md:h-[400px] rounded-lg overflow-hidden"
-                                    whileHover={{ scale: 1.02 }}
-                                    transition={{ duration: 0.3 }}
-                                    style={{ boxShadow: theme.shadows.md }}
-                                >
-                                    <Image
-                                        src={service.image}
-                                        alt={`${service.title} - Pour L'intérieur`}
-                                        fill
-                                        className="object-cover object-center"
-                                        sizes="(max-width: 1024px) 100vw, 50vw"
-                                        quality={85}
-                                    />
-                                    <motion.div
-                                        className="absolute inset-0"
-                                        initial={{ opacity: 0.6 }}
-                                        whileHover={{ opacity: 0.3 }}
-                                        transition={{ duration: 0.3 }}
-                                        style={{
-                                            background: `linear-gradient(to top, ${theme.colors.overlay.dark}, transparent)`
-                                        }}
-                                    />
-                                    <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-7 md:p-8">
-                                        <motion.h2
-                                            className="text-2xl sm:text-2xl md:text-3xl font-light text-white mb-2"
-                                            whileHover={{ x: 10 }}
-                                            transition={{ duration: 0.2 }}
-                                        >
-                                            {service.title}
-                                        </motion.h2>
-                                    </div>
-                                </motion.div>
+                            <div className="relative h-64">
+                                <Image
+                                    src={service.image}
+                                    alt={`${service.title} - Pour L'intérieur`}
+                                    fill
+                                    className="object-cover object-center"
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                    quality={85}
+                                />
+                                <div
+                                    className="absolute inset-0"
+                                    style={{
+                                        background: `linear-gradient(to top, ${theme.colors.overlay.dark}, transparent)`
+                                    }}
+                                />
                             </div>
 
-                            <div className="space-y-4 sm:space-y-5 md:space-y-6">
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: 0.2 }}
-                                    viewport={{ once: true }}
-                                >
-                                    <h2
-                                        className="text-2xl sm:text-2xl md:text-3xl font-light"
-                                        style={{ color: theme.colors.text.primary }}
-                                    >
-                                        {service.title}
-                                    </h2>
-                                    <p
-                                        className="text-base sm:text-lg md:text-xl mt-4"
-                                        style={{ color: theme.colors.text.secondary }}
-                                    >
-                                        {service.longDescription}
-                                    </p>
-                                </motion.div>
+                            <div className="flex-1 p-6 sm:p-7 flex flex-col">
+                                <h2 className="text-2xl font-light mb-4" style={{ color: theme.colors.text.primary }}>
+                                    {service.title}
+                                </h2>
+                                <p className="text-base mb-6" style={{ color: theme.colors.text.secondary }}>
+                                    {service.description}
+                                </p>
 
-                                <motion.div
-                                    className="space-y-3 sm:space-y-4"
-                                    initial={{ opacity: 0 }}
-                                    whileInView={{ opacity: 1 }}
-                                    transition={{ duration: 0.5, delay: 0.4 }}
-                                    viewport={{ once: true }}
-                                >
+                                <div className="space-y-3 mb-6">
                                     {service.features.map((feature, idx) => (
-                                        <div
-                                            key={idx}
-                                            className="flex items-center gap-3"
-                                        >
-                                            <motion.span
-                                                className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full"
-                                                style={{ backgroundColor: theme.colors.navy.dark }}
-                                                whileHover={{ scale: 1.5 }}
-                                                transition={{ duration: 0.2 }}
-                                            />
+                                        <div key={idx} className="flex items-center gap-3">
                                             <span
-                                                className="text-sm sm:text-base md:text-lg"
-                                                style={{ color: theme.colors.text.secondary }}
-                                            >
+                                                className="w-1.5 h-1.5 rounded-full"
+                                                style={{ backgroundColor: theme.colors.navy.dark }}
+                                            />
+                                            <span className="text-sm" style={{ color: theme.colors.text.secondary }}>
                                                 {feature}
                                             </span>
                                         </div>
                                     ))}
-                                </motion.div>
+                                </div>
 
-                                <motion.div
-                                    className="pt-4 sm:pt-6"
-                                    initial={{ opacity: 0 }}
-                                    whileInView={{ opacity: 1 }}
-                                    transition={{ duration: 0.5, delay: 0.6 }}
-                                    viewport={{ once: true }}
-                                >
+                                <div className="mt-auto">
                                     <Button
                                         onClick={() => handleQuoteRequest(service.title)}
                                         variant="outline"
-                                        className="group"
+                                        className="w-full group"
                                     >
                                         <span className="group-hover:translate-x-1 transition-transform duration-200">
                                             Demander un devis
                                         </span>
-                                        <motion.span
-                                            className="ml-2 inline-block"
-                                            whileHover={{ x: 5 }}
-                                            transition={{ duration: 0.2 }}
-                                        >
-                                            →
-                                        </motion.span>
                                     </Button>
-                                </motion.div>
+                                </div>
                             </div>
                         </motion.div>
                     ))}
                 </motion.div>
             </section>
 
-            {/* Contact CTA */}
-            <section className="mt-32 py-20" style={{ backgroundColor: theme.colors.background.secondary }}>
-                <div className="max-w-4xl mx-auto px-4 2xl:max-w-5xl 3xl:max-w-6xl text-center">
-                    <FadeIn>
-                        <h2 className="text-4xl font-light mb-6" style={{ color: theme.colors.text.primary }}>Prêt à Commencer ?</h2>
-                        <p className="text-xl mb-12" style={{ color: theme.colors.text.secondary }}>
-                            Contactez-nous pour discuter de votre projet et obtenir un devis personnalisé
-                        </p>
-                        <Button
-                            onClick={() => {
-                                setSelectedService('general')
-                                setIsModalOpen(true)
-                            }}
-                            variant="primary">
-                            Nous Contacter
-                        </Button>
-                    </FadeIn>
-                </div>
-            </section>
-
             {/* Contact Banner */}
-            <ContactBanner />
+            <div className="mt-20">
+                <ContactBanner />
+            </div>
 
             {/* Quote Request Modal */}
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <QuoteRequestForm onClose={() => setIsModalOpen(false)} service={selectedService || undefined} />
+                <QuoteRequestForm service={selectedService || undefined} onClose={() => setIsModalOpen(false)} />
             </Modal>
         </motion.main>
     )
