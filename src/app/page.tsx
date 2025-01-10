@@ -415,7 +415,7 @@ export default function Home() {
                 {/* Recent Projects Preview */}
                 <section className="py-20 bg-gray-50">
                     <div className="max-w-7xl mx-auto px-4">
-                        <div className="flex justify-between items-end mb-12">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end mb-12 gap-4">
                             <FadeIn>
                                 <div>
                                     <h2 className="text-4xl font-light mb-4">Projets Récents</h2>
@@ -423,7 +423,7 @@ export default function Home() {
                                 </div>
                             </FadeIn>
                             <FadeIn direction="left">
-                                <Button href="/realisations" variant="outline">
+                                <Button href="/realisations" variant="outline" className="whitespace-nowrap">
                                     Voir tous les projets
                                     <span className="ml-2">→</span>
                                 </Button>

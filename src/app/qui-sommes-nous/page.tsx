@@ -63,17 +63,18 @@ export default function QuiSommesNous() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-start">
                     <FadeIn>
                         <motion.div
-                            className="sticky top-32"
+                            className="sticky top-32 w-full"
                             whileHover={{ scale: 1.02 }}
                             transition={{ duration: 0.5 }}
                         >
-                            <div className="relative h-[700px] rounded-lg overflow-hidden shadow-lg" style={{ boxShadow: theme.shadows.lg }}>
+                            <div className="relative h-[500px] sm:h-[600px] md:h-[700px] rounded-lg overflow-hidden shadow-lg" style={{ boxShadow: theme.shadows.lg }}>
                                 <Image
                                     src="/Portrait Samson.JPG"
                                     alt="Portrait de Samson"
                                     fill
                                     className="object-cover object-center"
-                                    sizes="(max-width: 1024px) 100vw,
+                                    sizes="(max-width: 640px) 100vw,
+                                           (max-width: 1024px) 100vw,
                                            50vw"
                                     quality={90}
                                 />
