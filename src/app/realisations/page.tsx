@@ -6,7 +6,8 @@ import FadeIn from '@/components/animations/FadeIn'
 import ContactBanner from '@/components/layout/ContactBanner'
 import { theme } from '@/styles/theme'
 import Button from '@/components/ui/Button'
-import { useRouter } from 'next/navigation'
+import Modal from '@/components/ui/Modal'
+import QuoteRequestForm from '@/components/forms/QuoteRequestForm'
 
 const categories = ['Tous', 'Rénovation', 'Peinture', 'Maçonnerie', 'Plâtrerie']
 
@@ -73,12 +74,79 @@ const projects = [
     }
 ]
 
+const statistics = [
+    { number: '150+', label: 'Projets Réalisés' },
+    { number: '12', label: 'Années d\'Expérience' },
+    { number: '98%', label: 'Clients Satisfaits' },
+    { number: '45', label: 'Experts Qualifiés' }
+]
+
+const processSteps = [
+    {
+        title: 'Consultation',
+        description: 'Évaluation détaillée de vos besoins et objectifs',
+        image: '/renov_1.jpeg',
+        icon: '🤝'
+    },
+    {
+        title: 'Planification',
+        description: 'Élaboration d\'un plan d\'action précis',
+        image: '/renov_2.jpeg',
+        icon: '📋'
+    },
+    {
+        title: 'Réalisation',
+        description: 'Exécution experte des travaux',
+        image: '/renov_3.JPG',
+        icon: '🏗️'
+    },
+    {
+        title: 'Finition',
+        description: 'Attention méticuleuse aux détails',
+        image: '/renov_4.JPG',
+        icon: '✨'
+    }
+]
+
+const testimonials = [
+    {
+        name: 'Sophie Martin',
+        role: 'Propriétaire',
+        location: 'Paris 16ème',
+        content: 'Une équipe exceptionnelle qui a su transformer notre appartement tout en respectant son caractère haussmannien. Le résultat dépasse nos attentes.',
+        image: '/testimonial_1.jpg'
+    },
+    {
+        name: 'Pierre Dubois',
+        role: 'Architecte',
+        location: 'Neuilly-sur-Seine',
+        content: 'Collaboration professionnelle remarquable. Leur expertise technique et leur souci du détail sont impressionnants.',
+        image: '/testimonial_2.jpg'
+    },
+    {
+        name: 'Marie Laurent',
+        role: 'Propriétaire',
+        location: 'Saint-Germain-en-Laye',
+        content: 'Un travail de grande qualité, réalisé dans les délais. La communication était excellente tout au long du projet.',
+        image: '/testimonial_3.jpg'
+    }
+]
+
 export default function Realisations() {
     const [selectedCategory, setSelectedCategory] = useState('Tous')
     const [selectedProject, setSelectedProject] = useState<number | null>(null)
+    const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
+    const [selectedQuoteProject, setSelectedQuoteProject] = useState<typeof projects[0] | null>(null)
     const projectsRef = useRef<HTMLDivElement>(null)
     const isInView = useInView(projectsRef, { once: true, margin: "-10%" })
-    const router = useRouter()
+
+    const statsRef = useRef<HTMLDivElement>(null)
+    const processRef = useRef<HTMLDivElement>(null)
+    const testimonialsRef = useRef<HTMLDivElement>(null)
+
+    const isStatsInView = useInView(statsRef, { once: true, margin: "-10%" })
+    const isProcessInView = useInView(processRef, { once: true, margin: "-10%" })
+    const isTestimonialsInView = useInView(testimonialsRef, { once: true, margin: "-10%" })
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -106,8 +174,9 @@ export default function Realisations() {
         ? projects
         : projects.filter(project => project.category === selectedCategory)
 
-    const handleQuoteRequest = (projectType: string) => {
-        router.push(`/contact?type=${projectType}`)
+    const handleQuoteRequest = (project: typeof projects[0]) => {
+        setSelectedQuoteProject(project)
+        setIsQuoteModalOpen(true)
     }
 
     return (
@@ -145,6 +214,36 @@ export default function Realisations() {
                             Découvrez nos projets d'aménagement et de rénovation
                         </p>
                     </FadeIn>
+                </div>
+            </section>
+
+            {/* Statistics Section */}
+            <section
+                ref={statsRef}
+                className="py-20 bg-gray-50"
+            >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                    <motion.div
+                        className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate={isStatsInView ? "visible" : "hidden"}
+                    >
+                        {statistics.map((stat, index) => (
+                            <motion.div
+                                key={stat.label}
+                                variants={itemVariants}
+                                className="text-center"
+                            >
+                                <h3 className="text-4xl sm:text-5xl font-light mb-2" style={{ color: theme.colors.text.primary }}>
+                                    {stat.number}
+                                </h3>
+                                <p className="text-sm sm:text-base" style={{ color: theme.colors.text.secondary }}>
+                                    {stat.label}
+                                </p>
+                            </motion.div>
+                        ))}
+                    </motion.div>
                 </div>
             </section>
 
@@ -235,7 +334,7 @@ export default function Realisations() {
                                         </div>
                                         <div className="mt-auto">
                                             <Button
-                                                onClick={() => handleQuoteRequest(project.category)}
+                                                onClick={() => handleQuoteRequest(project)}
                                                 variant="outline"
                                                 className="w-full group"
                                             >
@@ -252,10 +351,130 @@ export default function Realisations() {
                 </motion.div>
             </section>
 
+            {/* Process Section */}
+            <section
+                ref={processRef}
+                className="py-20 bg-white"
+            >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                    <FadeIn>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-center mb-4">
+                            Notre Processus
+                        </h2>
+                        <p className="text-center text-lg mb-16" style={{ color: theme.colors.text.secondary }}>
+                            Une approche méthodique pour des résultats exceptionnels
+                        </p>
+                    </FadeIn>
+
+                    <motion.div
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate={isProcessInView ? "visible" : "hidden"}
+                    >
+                        {processSteps.map((step, index) => (
+                            <motion.div
+                                key={step.title}
+                                variants={itemVariants}
+                                className="relative"
+                            >
+                                <div className="relative h-64 rounded-lg overflow-hidden mb-6">
+                                    <Image
+                                        src={step.image}
+                                        alt={step.title}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-black/40" />
+                                    <div className="absolute top-4 left-4 w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl">
+                                        {step.icon}
+                                    </div>
+                                </div>
+                                <h3 className="text-xl font-light mb-2" style={{ color: theme.colors.text.primary }}>
+                                    {step.title}
+                                </h3>
+                                <p className="text-base" style={{ color: theme.colors.text.secondary }}>
+                                    {step.description}
+                                </p>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Testimonials Section */}
+            <section
+                ref={testimonialsRef}
+                className="py-20 bg-gray-50"
+            >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                    <FadeIn>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-center mb-4">
+                            Témoignages Clients
+                        </h2>
+                        <p className="text-center text-lg mb-16" style={{ color: theme.colors.text.secondary }}>
+                            Ce que nos clients disent de nous
+                        </p>
+                    </FadeIn>
+
+                    <motion.div
+                        className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate={isTestimonialsInView ? "visible" : "hidden"}
+                    >
+                        {testimonials.map((testimonial, index) => (
+                            <motion.div
+                                key={testimonial.name}
+                                variants={itemVariants}
+                                className="bg-white p-6 rounded-xl shadow-lg"
+                            >
+                                <div className="flex items-center mb-6">
+                                    <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4">
+                                        <Image
+                                            src={testimonial.image}
+                                            alt={testimonial.name}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-light" style={{ color: theme.colors.text.primary }}>
+                                            {testimonial.name}
+                                        </h3>
+                                        <p className="text-sm" style={{ color: theme.colors.text.secondary }}>
+                                            {testimonial.role} - {testimonial.location}
+                                        </p>
+                                    </div>
+                                </div>
+                                <p className="text-base italic" style={{ color: theme.colors.text.secondary }}>
+                                    "{testimonial.content}"
+                                </p>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </div>
+            </section>
+
             {/* Contact Banner */}
             <div className="mt-20">
                 <ContactBanner />
             </div>
+
+            {/* Quote Request Modal */}
+            <Modal isOpen={isQuoteModalOpen} onClose={() => setIsQuoteModalOpen(false)}>
+                <div className="p-6">
+                    <h2 className="text-2xl font-light mb-6">Demande de devis - {selectedQuoteProject?.title}</h2>
+                    <p className="mb-6 text-gray-600">
+                        Vous êtes intéressé par un projet similaire à notre réalisation "{selectedQuoteProject?.title}" à {selectedQuoteProject?.location}.
+                        Décrivez-nous vos besoins et nous vous contacterons rapidement avec une proposition détaillée.
+                    </p>
+                    <QuoteRequestForm
+                        service={selectedQuoteProject?.category}
+                        onClose={() => setIsQuoteModalOpen(false)}
+                    />
+                </div>
+            </Modal>
         </motion.main>
     )
 } 
