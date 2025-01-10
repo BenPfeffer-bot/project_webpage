@@ -64,15 +64,15 @@ export default function QuoteRequestForm({ onClose, service }: QuoteRequestFormP
     }
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 overflow-y-auto">
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="bg-white rounded-xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+                className="bg-white rounded-xl p-6 w-full max-w-2xl my-8"
             >
                 <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-light">Demande de devis</h2>
+                    <h2 className="text-2xl font-light">Demande de devis{service ? ` - ${service}` : ''}</h2>
                     <button
                         onClick={onClose}
                         className="text-gray-500 hover:text-gray-700 transition-colors"
@@ -87,8 +87,8 @@ export default function QuoteRequestForm({ onClose, service }: QuoteRequestFormP
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         className={`mb-6 p-4 rounded-lg ${formStatus.type === 'success'
-                            ? 'bg-green-50 text-green-600'
-                            : 'bg-red-50 text-red-600'
+                                ? 'bg-green-50 text-green-600'
+                                : 'bg-red-50 text-red-600'
                             }`}
                     >
                         {formStatus.message}
@@ -150,13 +150,15 @@ export default function QuoteRequestForm({ onClose, service }: QuoteRequestFormP
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black disabled:bg-gray-100"
                         whileFocus={{ scale: 1.01 }}
                         disabled={isSubmitting}
+                        defaultValue={service ? `Je souhaite un devis pour ${service}` : ''}
                     />
-                    <div className="flex justify-end space-x-4">
+                    <div className="flex flex-col sm:flex-row justify-end gap-4">
                         <Button
                             type="button"
                             variant="outline"
                             onClick={onClose}
                             disabled={isSubmitting}
+                            className="w-full sm:w-auto"
                         >
                             Annuler
                         </Button>
@@ -164,6 +166,7 @@ export default function QuoteRequestForm({ onClose, service }: QuoteRequestFormP
                             type="submit"
                             variant="primary"
                             disabled={isSubmitting}
+                            className="w-full sm:w-auto"
                         >
                             {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
                         </Button>
