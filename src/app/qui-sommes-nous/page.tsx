@@ -1,13 +1,62 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import FadeIn from '@/components/animations/FadeIn'
 import ParallaxScroll from '@/components/animations/ParallaxScroll'
 import ContactBanner from '@/components/layout/ContactBanner'
 import { theme } from '@/styles/theme'
 
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.2
+        }
+    }
+}
+
+const itemVariants = {
+    hidden: {
+        opacity: 0,
+        y: 20
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.5
+        }
+    }
+}
+
+const timeline = [
+    {
+        year: '2010',
+        title: 'Fondation',
+        description: 'Création de POUR L\'INTERIEUR avec une vision claire : offrir des services de rénovation d\'excellence.'
+    },
+    {
+        year: '2015',
+        title: 'Expansion',
+        description: 'Développement de l\'équipe et élargissement de notre gamme de services.'
+    },
+    {
+        year: '2020',
+        title: 'Innovation',
+        description: 'Adoption de nouvelles technologies et méthodes pour améliorer nos services.'
+    },
+    {
+        year: '2023',
+        title: 'Excellence Continue',
+        description: 'Poursuite de notre engagement pour la qualité et la satisfaction client.'
+    }
+]
+
 export default function QuiSommesNous() {
+    const timelineRef = useRef(null)
+    const isTimelineInView = useInView(timelineRef, { once: true, margin: "-100px" })
+
     return (
         <motion.main
             className="pt-24 pb-0"
@@ -192,6 +241,50 @@ export default function QuiSommesNous() {
                 </div>
             </section>
 
+            {/* Timeline Section */}
+            <section className="py-20 bg-gray-50" ref={timelineRef}>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                    <FadeIn>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-center mb-4">
+                            Notre Histoire
+                        </h2>
+                        <p className="text-center text-lg mb-16" style={{ color: theme.colors.text.secondary }}>
+                            Plus d'une décennie d'excellence dans la rénovation
+                        </p>
+                    </FadeIn>
+
+                    <motion.div
+                        className="relative"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate={isTimelineInView ? "visible" : "hidden"}
+                    >
+                        <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200" />
+                        {timeline.map((item, index) => (
+                            <motion.div
+                                key={item.year}
+                                variants={itemVariants}
+                                className={`relative flex items-center gap-8 mb-12 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
+                            >
+                                <div className={`w-1/2 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
+                                    <h3 className="text-2xl font-light mb-2" style={{ color: theme.colors.text.primary }}>
+                                        {item.year}
+                                    </h3>
+                                    <h4 className="text-xl mb-2" style={{ color: theme.colors.text.primary }}>
+                                        {item.title}
+                                    </h4>
+                                    <p style={{ color: theme.colors.text.secondary }}>
+                                        {item.description}
+                                    </p>
+                                </div>
+                                <div className="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-navy-dark rounded-full" />
+                                <div className="w-1/2" />
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </div>
+            </section>
+
             {/* Team Section */}
             <section className="bg-gray-50 py-20" style={{ backgroundColor: theme.colors.background.secondary }}>
                 <div className="max-w-7xl mx-auto px-4">
@@ -315,4 +408,4 @@ export default function QuiSommesNous() {
             <ContactBanner />
         </motion.main>
     )
-} 
+}

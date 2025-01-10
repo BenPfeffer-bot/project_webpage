@@ -8,6 +8,7 @@ import { theme } from '@/styles/theme'
 import Button from '@/components/ui/Button'
 import Modal from '@/components/ui/Modal'
 import QuoteRequestForm from '@/components/forms/QuoteRequestForm'
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
 
 const categories = ['Tous', 'Rénovation', 'Peinture', 'Maçonnerie', 'Plâtrerie']
 
@@ -132,6 +133,85 @@ const testimonials = [
     }
 ]
 
+const beforeAfterProjects = [
+    {
+        title: 'Rénovation Salon Haussmannien',
+        location: 'Paris 8ème',
+        before: '/before_1.jpg',
+        after: '/after_1.jpg',
+        description: 'Transformation complète d\'un salon avec restauration des moulures et parquet'
+    },
+    {
+        title: 'Modernisation Cuisine',
+        location: 'Neuilly-sur-Seine',
+        before: '/before_2.jpg',
+        after: '/after_2.jpg',
+        description: 'Réaménagement total avec création d\'un espace ouvert et moderne'
+    },
+    {
+        title: 'Rénovation Salle de Bain',
+        location: 'Paris 16ème',
+        before: '/before_3.jpg',
+        after: '/after_3.jpg',
+        description: 'Transformation luxueuse avec matériaux haut de gamme'
+    }
+]
+
+const awards = [
+    {
+        title: 'Excellence en Rénovation',
+        year: '2023',
+        organization: 'Fédération Française du Bâtiment',
+        icon: '🏆'
+    },
+    {
+        title: 'Prix de l\'Innovation',
+        year: '2022',
+        organization: 'Salon de l\'Habitat',
+        icon: '🌟'
+    },
+    {
+        title: 'Certification Qualibat',
+        year: '2023',
+        organization: 'Qualibat',
+        icon: '✓'
+    },
+    {
+        title: 'Label RGE',
+        year: '2023',
+        organization: 'ADEME',
+        icon: '🌿'
+    }
+]
+
+const timeline = [
+    {
+        year: '2010',
+        title: 'Création de l\'entreprise',
+        description: 'Début de notre aventure dans la rénovation de luxe'
+    },
+    {
+        year: '2015',
+        title: 'Expansion des services',
+        description: 'Intégration de nouveaux corps de métiers'
+    },
+    {
+        year: '2018',
+        title: 'Certification Qualibat',
+        description: 'Reconnaissance de notre expertise'
+    },
+    {
+        year: '2020',
+        title: '100ème projet',
+        description: 'Une étape importante dans notre croissance'
+    },
+    {
+        year: '2023',
+        title: 'Innovation durable',
+        description: 'Adoption de pratiques éco-responsables'
+    }
+]
+
 export default function Realisations() {
     const [selectedCategory, setSelectedCategory] = useState('Tous')
     const [selectedProject, setSelectedProject] = useState<number | null>(null)
@@ -143,10 +223,16 @@ export default function Realisations() {
     const statsRef = useRef<HTMLDivElement>(null)
     const processRef = useRef<HTMLDivElement>(null)
     const testimonialsRef = useRef<HTMLDivElement>(null)
+    const beforeAfterRef = useRef<HTMLDivElement>(null)
+    const timelineRef = useRef<HTMLDivElement>(null)
+    const awardsRef = useRef<HTMLDivElement>(null)
 
     const isStatsInView = useInView(statsRef, { once: true, margin: "-10%" })
     const isProcessInView = useInView(processRef, { once: true, margin: "-10%" })
     const isTestimonialsInView = useInView(testimonialsRef, { once: true, margin: "-10%" })
+    const isBeforeAfterInView = useInView(beforeAfterRef, { once: true, margin: "-10%" })
+    const isTimelineInView = useInView(timelineRef, { once: true, margin: "-10%" })
+    const isAwardsInView = useInView(awardsRef, { once: true, margin: "-10%" })
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -177,6 +263,20 @@ export default function Realisations() {
     const handleQuoteRequest = (project: typeof projects[0]) => {
         setSelectedQuoteProject(project)
         setIsQuoteModalOpen(true)
+    }
+
+    const [currentBeforeAfter, setCurrentBeforeAfter] = useState(0)
+
+    const nextBeforeAfter = () => {
+        setCurrentBeforeAfter((prev) =>
+            prev === beforeAfterProjects.length - 1 ? 0 : prev + 1
+        )
+    }
+
+    const prevBeforeAfter = () => {
+        setCurrentBeforeAfter((prev) =>
+            prev === 0 ? beforeAfterProjects.length - 1 : prev - 1
+        )
     }
 
     return (
@@ -244,6 +344,78 @@ export default function Realisations() {
                             </motion.div>
                         ))}
                     </motion.div>
+                </div>
+            </section>
+
+            {/* Before/After Showcase */}
+            <section
+                ref={beforeAfterRef}
+                className="py-20 bg-white"
+            >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                    <FadeIn>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-center mb-4">
+                            Avant / Après
+                        </h2>
+                        <p className="text-center text-lg mb-16" style={{ color: theme.colors.text.secondary }}>
+                            Découvrez nos transformations les plus spectaculaires
+                        </p>
+                    </FadeIn>
+
+                    <div className="relative">
+                        <motion.div
+                            className="relative aspect-[16/9] rounded-xl overflow-hidden"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <div className="grid grid-cols-2 h-full">
+                                <div className="relative">
+                                    <Image
+                                        src={beforeAfterProjects[currentBeforeAfter].before}
+                                        alt="Avant"
+                                        fill
+                                        className="object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                                        <span className="text-white text-2xl font-light">Avant</span>
+                                    </div>
+                                </div>
+                                <div className="relative">
+                                    <Image
+                                        src={beforeAfterProjects[currentBeforeAfter].after}
+                                        alt="Après"
+                                        fill
+                                        className="object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                                        <span className="text-white text-2xl font-light">Après</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white">
+                                <h3 className="text-2xl font-light mb-2">
+                                    {beforeAfterProjects[currentBeforeAfter].title}
+                                </h3>
+                                <p className="text-white/80">
+                                    {beforeAfterProjects[currentBeforeAfter].location}
+                                </p>
+                            </div>
+                        </motion.div>
+
+                        <button
+                            onClick={prevBeforeAfter}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 hover:bg-white shadow-lg transition-all duration-200"
+                        >
+                            <ArrowLeftIcon className="w-6 h-6" />
+                        </button>
+                        <button
+                            onClick={nextBeforeAfter}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 hover:bg-white shadow-lg transition-all duration-200"
+                        >
+                            <ArrowRightIcon className="w-6 h-6" />
+                        </button>
+                    </div>
                 </div>
             </section>
 
@@ -351,10 +523,53 @@ export default function Realisations() {
                 </motion.div>
             </section>
 
-            {/* Process Section */}
+            {/* Awards & Certifications
+            <section
+                ref={awardsRef}
+                className="py-20 bg-white"
+            >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                    <FadeIn>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-center mb-4">
+                            Reconnaissances
+                        </h2>
+                        <p className="text-center text-lg mb-16" style={{ color: theme.colors.text.secondary }}>
+                            Notre expertise reconnue par les professionnels du secteur
+                        </p>
+                    </FadeIn>
+
+                    <motion.div
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate={isAwardsInView ? "visible" : "hidden"}
+                    >
+                        {awards.map((award) => (
+                            <motion.div
+                                key={award.title}
+                                variants={itemVariants}
+                                className="bg-gray-50 p-6 rounded-xl text-center"
+                            >
+                                <span className="text-4xl mb-4 block">{award.icon}</span>
+                                <h3 className="text-xl font-light mb-2" style={{ color: theme.colors.text.primary }}>
+                                    {award.title}
+                                </h3>
+                                <p className="text-sm mb-2" style={{ color: theme.colors.text.secondary }}>
+                                    {award.organization}
+                                </p>
+                                <p className="text-sm" style={{ color: theme.colors.text.secondary }}>
+                                    {award.year}
+                                </p>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </div>
+            </section> */}
+
+            {/* Process Section with Enhanced Details */}
             <section
                 ref={processRef}
-                className="py-20 bg-white"
+                className="py-20 bg-gray-50"
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
                     <FadeIn>
@@ -367,7 +582,7 @@ export default function Realisations() {
                     </FadeIn>
 
                     <motion.div
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12"
+                        className="grid grid-cols-1 lg:grid-cols-4 gap-8 sm:gap-12"
                         variants={containerVariants}
                         initial="hidden"
                         animate={isProcessInView ? "visible" : "hidden"}
@@ -378,16 +593,21 @@ export default function Realisations() {
                                 variants={itemVariants}
                                 className="relative"
                             >
-                                <div className="relative h-64 rounded-lg overflow-hidden mb-6">
+                                <div className="relative h-64 rounded-lg overflow-hidden mb-6 group">
                                     <Image
                                         src={step.image}
                                         alt={step.title}
                                         fill
-                                        className="object-cover"
+                                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                                     />
-                                    <div className="absolute inset-0 bg-black/40" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                     <div className="absolute top-4 left-4 w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl">
                                         {step.icon}
+                                    </div>
+                                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                                        <span className="inline-block px-3 py-1 bg-white/20 rounded-full text-white text-sm mb-2">
+                                            Étape {index + 1}
+                                        </span>
                                     </div>
                                 </div>
                                 <h3 className="text-xl font-light mb-2" style={{ color: theme.colors.text.primary }}>
@@ -402,7 +622,7 @@ export default function Realisations() {
                 </div>
             </section>
 
-            {/* Testimonials Section */}
+            {/* Testimonials Section
             <section
                 ref={testimonialsRef}
                 className="py-20 bg-gray-50"
@@ -454,7 +674,7 @@ export default function Realisations() {
                         ))}
                     </motion.div>
                 </div>
-            </section>
+            // </section> */}
 
             {/* Contact Banner */}
             <div className="mt-20">
