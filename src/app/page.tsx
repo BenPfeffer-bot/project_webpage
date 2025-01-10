@@ -142,6 +142,8 @@ export default function Home() {
         type: 'success' | 'error' | null;
         message: string | null;
     }>({ type: null, message: null })
+    const [direction, setDirection] = useState<'left' | 'right'>('left');
+    const [isAutoScrolling, setIsAutoScrolling] = useState(true);
 
     useEffect(() => {
         if (carousel.current) {
@@ -159,21 +161,36 @@ export default function Home() {
     useEffect(() => {
         let interval: NodeJS.Timeout
 
-        if (!isDragging) {
+        if (!isDragging && isAutoScrolling) {
             interval = setInterval(() => {
                 setPosition((prev) => {
-                    const newPosition = prev - 1
-                    // Reset position when reaching the end
+                    const newPosition = direction === 'left' ? prev - 1 : prev + 1;
+
+                    // Change direction when reaching the ends
                     if (-newPosition >= width) {
-                        return 0
+                        setDirection('right');
+                        return prev + 1;
+                    } else if (newPosition >= 0) {
+                        setDirection('left');
+                        return prev - 1;
                     }
-                    return newPosition
-                })
-            }, 30) // Adjust speed here (lower number = faster)
+
+                    return newPosition;
+                });
+            }, 30); // Adjust speed here
         }
 
-        return () => clearInterval(interval)
-    }, [width, isDragging])
+        return () => clearInterval(interval);
+    }, [width, isDragging, direction, isAutoScrolling]);
+
+    // Add pause on hover functionality
+    const handleMouseEnter = () => {
+        setIsAutoScrolling(false);
+    };
+
+    const handleMouseLeave = () => {
+        setIsAutoScrolling(true);
+    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -225,6 +242,36 @@ export default function Home() {
             setIsSubmitting(false)
         }
     }
+
+    // Add new function to handle manual sliding
+    const handleSlide = (direction: 'left' | 'right') => {
+        setDirection(direction);
+        setIsAutoScrolling(false);
+
+        // Calculate the width of one card (including gap)
+        const cardWidth = 400 + 32; // 400px card width + 32px gap
+
+        setPosition(prev => {
+            let newPosition;
+            if (direction === 'left') {
+                newPosition = prev + cardWidth;
+                // Prevent sliding too far left
+                if (newPosition > 0) {
+                    newPosition = -width + cardWidth;
+                }
+            } else {
+                newPosition = prev - cardWidth;
+                // Prevent sliding too far right
+                if (-newPosition > width) {
+                    newPosition = 0;
+                }
+            }
+            return newPosition;
+        });
+
+        // Resume auto-scrolling after a delay
+        setTimeout(() => setIsAutoScrolling(true), 2000);
+    };
 
     return (
         <>
@@ -334,12 +381,17 @@ export default function Home() {
                 {/* Services Section */}
                 <section id="services" className="py-20 bg-gray-50 overflow-hidden">
                     <div className="max-w-7xl mx-auto px-4">
-                        <FadeIn>
+                        <ScrollAnimation variant="slideUp">
                             <h2 className="text-4xl font-light mb-16 text-center">Nos Services</h2>
-                        </FadeIn>
+                        </ScrollAnimation>
 
                         {/* Services Slider */}
-                        <div className="relative" ref={carousel}>
+                        <div
+                            className="relative"
+                            ref={carousel}
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
+                        >
                             <motion.div
                                 className="flex gap-8 cursor-grab active:cursor-grabbing"
                                 drag="x"
@@ -347,15 +399,20 @@ export default function Home() {
                                 dragElastic={0.1}
                                 dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
                                 style={{ x: position }}
-                                onDragStart={() => setIsDragging(true)}
-                                onDragEnd={() => {
-                                    setIsDragging(false)
-                                    if (-position >= width) {
-                                        setPosition(0)
-                                    }
+                                onDragStart={() => {
+                                    setIsDragging(true);
+                                    setIsAutoScrolling(false);
                                 }}
-                                whileInView={{ x: position }}
-                                viewport={{ once: false }}
+                                onDragEnd={() => {
+                                    setIsDragging(false);
+                                    if (-position >= width) {
+                                        setDirection('right');
+                                    } else if (position >= 0) {
+                                        setDirection('left');
+                                    }
+                                    // Resume auto-scrolling after a delay
+                                    setTimeout(() => setIsAutoScrolling(true), 2000);
+                                }}
                             >
                                 {/* First set of services */}
                                 {services.map((service, index) => (
@@ -376,11 +433,30 @@ export default function Home() {
                                     <motion.div
                                         className="w-full h-full bg-black"
                                         style={{
-                                            scaleX: -position / width,
-                                            transformOrigin: "left"
+                                            scaleX: Math.abs(position / width),
+                                            transformOrigin: direction === 'left' ? "left" : "right"
                                         }}
                                     />
                                 </motion.div>
+                                {/* Direction Indicators */}
+                                <div className="flex gap-2 ml-4">
+                                    <motion.button
+                                        className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center"
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
+                                        onClick={() => handleSlide('left')}
+                                    >
+                                        <span className="text-black">←</span>
+                                    </motion.button>
+                                    <motion.button
+                                        className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center"
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
+                                        onClick={() => handleSlide('right')}
+                                    >
+                                        <span className="text-black">→</span>
+                                    </motion.button>
+                                </div>
                             </div>
                         </div>
                     </div>
