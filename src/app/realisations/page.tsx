@@ -132,7 +132,7 @@ export default function Realisations() {
                             {filteredProjects.map((project, index) => (
                                 <FadeIn key={project.title} delay={index * 0.1}>
                                     <motion.div
-                                        className="group relative"
+                                        className="group relative cursor-pointer"
                                         onHoverStart={() => setHoveredIndex(index)}
                                         onHoverEnd={() => setHoveredIndex(null)}
                                         layout
@@ -146,15 +146,13 @@ export default function Realisations() {
                                             />
                                             {/* Sliding Information Bar */}
                                             <motion.div
-                                                className="absolute inset-0 flex flex-col justify-end"
-                                                initial={{ opacity: 0 }}
-                                                whileHover={{ opacity: 1 }}
-                                                transition={{ duration: 0.3 }}
+                                                className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                                initial={false}
                                             >
                                                 <motion.div
-                                                    className="bg-gradient-to-t from-black/90 to-transparent p-8"
+                                                    className="p-8"
                                                     initial={{ y: 100, opacity: 0 }}
-                                                    whileHover={{ y: 0, opacity: 1 }}
+                                                    animate={hoveredIndex === index ? { y: 0, opacity: 1 } : { y: 100, opacity: 0 }}
                                                     transition={{ duration: 0.3 }}
                                                 >
                                                     <motion.div
