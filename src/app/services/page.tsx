@@ -55,8 +55,8 @@ const services = [
 ]
 
 export default function Services() {
+    const [selectedService, setSelectedService] = useState<string | null>(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [selectedService, setSelectedService] = useState<string>('')
     const servicesRef = useRef<HTMLDivElement>(null)
     const isInView = useInView(servicesRef, { once: true, margin: "-10%" })
 
@@ -259,54 +259,32 @@ export default function Services() {
             </section>
 
             {/* Contact CTA */}
-            <section
-                className="mt-20 sm:mt-24 md:mt-32 py-16 sm:py-18 md:py-20"
-                style={{ backgroundColor: theme.colors.background.secondary }}
-            >
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 text-center">
+            <section className="mt-32 py-20" style={{ backgroundColor: theme.colors.background.secondary }}>
+                <div className="max-w-4xl mx-auto px-4 2xl:max-w-5xl 3xl:max-w-6xl text-center">
                     <FadeIn>
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5 }}
-                            viewport={{ once: true }}
-                        >
-                            <h2
-                                className="text-3xl sm:text-3xl md:text-4xl font-light mb-4 sm:mb-5 md:mb-6"
-                                style={{ color: theme.colors.text.primary }}
-                            >
-                                Prêt à Commencer ?
-                            </h2>
-                            <p
-                                className="text-lg sm:text-xl md:text-xl mb-8 sm:mb-10 md:mb-12 max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto"
-                                style={{ color: theme.colors.text.secondary }}
-                            >
-                                Contactez-nous pour discuter de votre projet et obtenir un devis personnalisé
-                            </p>
-                            <Button
-                                onClick={() => handleQuoteRequest('')}
-                                variant="primary"
-                                className="w-full sm:w-auto group"
-                            >
-                                <span className="group-hover:translate-x-1 transition-transform duration-200">
-                                    Nous Contacter
-                                </span>
-                            </Button>
-                        </motion.div>
+                        <h2 className="text-4xl font-light mb-6" style={{ color: theme.colors.text.primary }}>Prêt à Commencer ?</h2>
+                        <p className="text-xl mb-12" style={{ color: theme.colors.text.secondary }}>
+                            Contactez-nous pour discuter de votre projet et obtenir un devis personnalisé
+                        </p>
+                        <Button
+                            onClick={() => {
+                                setSelectedService('general')
+                                setIsModalOpen(true)
+                            }}
+                            variant="primary">
+                            Nous Contacter
+                        </Button>
                     </FadeIn>
                 </div>
             </section>
 
-            {/* Quote Request Modal */}
-            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <QuoteRequestForm
-                    onClose={() => setIsModalOpen(false)}
-                    service={selectedService}
-                />
-            </Modal>
-
             {/* Contact Banner */}
             <ContactBanner />
+
+            {/* Quote Request Modal */}
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <QuoteRequestForm onClose={() => setIsModalOpen(false)} service={selectedService || undefined} />
+            </Modal>
         </motion.main>
     )
 } 
