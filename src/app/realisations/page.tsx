@@ -278,214 +278,195 @@ export default function Realisations() {
             </section>
 
             {/* Statistics Section */}
-            <section
-                ref={statsRef}
-                className="py-20 bg-gray-50"
-            >
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                    <motion.div
-                        className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate={isStatsInView ? "visible" : "hidden"}
-                    >
-                        {statistics.map((stat, index) => (
+            <section className="py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+                <div className="absolute inset-0 bg-[#B5A642]/5 pattern-grid-lg opacity-30" />
+                <div className="max-w-7xl mx-auto px-4 relative">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+                        {statistics.map((stat) => (
                             <motion.div
                                 key={stat.label}
-                                variants={itemVariants}
-                                className="text-center"
+                                className="relative bg-white p-8 rounded-xl shadow-lg border border-gray-100 group hover:shadow-xl transition-all duration-300"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                whileHover={{ y: -5 }}
                             >
-                                <h3 className="text-4xl sm:text-5xl font-light mb-2" style={{ color: theme.colors.text.primary }}>
+                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#B5A642] to-[#B5A642]/60" />
+                                <h3 className="text-4xl md:text-5xl lg:text-6xl font-extralight mb-4 text-[#1B1B3A] tracking-wide">
                                     {stat.number}
                                 </h3>
-                                <p className="text-sm sm:text-base" style={{ color: theme.colors.text.secondary }}>
+                                <p className="text-[#1B1B3A]/70 text-lg">
                                     {stat.label}
                                 </p>
                             </motion.div>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
             {/* Category Filter */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 mb-12">
-                <div className="flex flex-wrap justify-center gap-4">
-                    {categories.map((category) => (
-                        <motion.button
-                            key={category}
-                            onClick={() => setSelectedCategory(category)}
-                            className={`px-6 py-2 rounded-full text-sm sm:text-base transition-all duration-300 ${selectedCategory === category
-                                ? 'bg-navy-dark text-white'
-                                : 'bg-gray-100 hover:bg-gray-200'
+            <section className="max-w-7xl mx-auto px-4 mb-16">
+                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                    <div className="flex flex-wrap justify-center gap-4">
+                        {categories.map((category) => (
+                            <motion.button
+                                key={category}
+                                onClick={() => setSelectedCategory(category)}
+                                className={`px-8 py-3 rounded-xl text-lg transition-all duration-300 flex items-center space-x-2 ${
+                                    selectedCategory === category
+                                        ? 'bg-[#B5A642] text-white shadow-lg scale-105'
+                                        : 'bg-gray-50 text-[#1B1B3A]/70 hover:bg-gray-100'
                                 }`}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            {category}
-                        </motion.button>
-                    ))}
+                                whileHover={{ scale: selectedCategory === category ? 1.05 : 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                            >
+                                {category === 'Tous' && <span className="text-xl">🏠</span>}
+                                {category === 'Rénovation' && <span className="text-xl">🔨</span>}
+                                {category === 'Peinture' && <span className="text-xl">🎨</span>}
+                                {category === 'Maçonnerie' && <span className="text-xl">🧱</span>}
+                                {category === 'Plâtrerie' && <span className="text-xl">✨</span>}
+                                <span>{category}</span>
+                            </motion.button>
+                        ))}
+                    </div>
                 </div>
-            </div>
+            </section>
 
             {/* Projects Grid */}
-            <section
-                ref={projectsRef}
-                className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8"
-            >
-                <motion.div
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 md:gap-12"
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate={isInView ? "visible" : "hidden"}
-                >
+            <section className="max-w-7xl mx-auto px-4 mb-24">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {filteredProjects.map((project, index) => (
                         <motion.div
                             key={project.title}
-                            variants={itemVariants}
-                            className="group relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
-                            onClick={() => setSelectedProject(selectedProject === index ? null : index)}
+                            className="group relative bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.1 }}
+                            whileHover={{ y: -5 }}
                         >
                             <div className="relative h-80">
                                 <Image
                                     src={project.image}
                                     alt={project.title}
                                     fill
-                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                                    quality={85}
+                                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                                 />
-                                <div
-                                    className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                />
-                                <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                    <div className="flex justify-between items-center mb-2">
-                                        <h3 className="text-2xl font-light">{project.title}</h3>
-                                        <span className="text-sm">{project.year}</span>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                <div className="absolute inset-0 p-6 flex flex-col justify-end text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <h3 className="text-2xl font-light mb-2">{project.title}</h3>
+                                    <p className="text-white/90 mb-4">{project.description}</p>
+                                    <div className="flex flex-wrap gap-2 mb-4">
+                                        {project.tags.map((tag) => (
+                                            <span
+                                                key={tag}
+                                                className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-sm"
+                                            >
+                                                {tag}
+                                            </span>
+                                        ))}
                                     </div>
-                                    <div className="flex justify-between text-sm mb-3">
-                                        <span>{project.location}</span>
-                                        <span>{project.category}</span>
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <p className="text-sm text-white/80">{project.location}</p>
+                                            <p className="text-sm text-white/60">{project.year}</p>
+                                        </div>
+                                        <Button
+                                            onClick={() => handleQuoteRequest(project)}
+                                            className="bg-[#B5A642] hover:bg-[#B5A642]/90 text-white"
+                                        >
+                                            En savoir plus
+                                        </Button>
                                     </div>
                                 </div>
                             </div>
-
-                            <AnimatePresence>
-                                {selectedProject === index && (
-                                    <motion.div
-                                        initial={{ opacity: 0, height: 0 }}
-                                        animate={{ opacity: 1, height: 'auto' }}
-                                        exit={{ opacity: 0, height: 0 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="p-6"
-                                    >
-                                        <p className="text-base mb-4" style={{ color: theme.colors.text.secondary }}>
-                                            {project.fullDescription}
-                                        </p>
-                                        <div className="flex flex-wrap gap-2 mb-4">
-                                            {project.tags.map((tag) => (
-                                                <span
-                                                    key={tag}
-                                                    className="px-3 py-1 bg-gray-100 rounded-full text-sm"
-                                                    style={{ color: theme.colors.text.secondary }}
-                                                >
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <div className="mt-auto">
-                                            <Button
-                                                onClick={() => handleQuoteRequest(project)}
-                                                variant="outline"
-                                                className="w-full group"
-                                            >
-                                                <span className="group-hover:translate-x-1 transition-transform duration-200">
-                                                    Demander un devis similaire
-                                                </span>
-                                            </Button>
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
                         </motion.div>
                     ))}
-                </motion.div>
+                </div>
             </section>
 
-            {/* Process Section with Enhanced Details */}
-            <section
-                ref={processRef}
-                className="py-20 bg-gray-50"
-            >
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                    <FadeIn>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-center mb-4">
+            {/* Process Section */}
+            <section className="py-24 bg-gray-50">
+                <div className="max-w-7xl mx-auto px-4">
+                    <div className="text-center mb-16">
+                        <motion.h2 
+                            className="text-4xl md:text-5xl lg:text-6xl font-extralight mb-6 text-[#1B1B3A] tracking-wide"
+                            initial={{ y: 20, opacity: 0 }}
+                            whileInView={{ y: 0, opacity: 1 }}
+                            viewport={{ once: true }}
+                        >
                             Notre Processus
-                        </h2>
-                        <p className="text-center text-lg mb-16" style={{ color: theme.colors.text.secondary }}>
+                        </motion.h2>
+                        <motion.p 
+                            className="text-xl text-[#1B1B3A]/70 max-w-2xl mx-auto"
+                            initial={{ y: 20, opacity: 0 }}
+                            whileInView={{ y: 0, opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.2 }}
+                        >
                             Une approche méthodique pour des résultats exceptionnels
-                        </p>
-                    </FadeIn>
+                        </motion.p>
+                    </div>
 
-                    <motion.div
-                        className="grid grid-cols-1 lg:grid-cols-4 gap-8 sm:gap-12"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate={isProcessInView ? "visible" : "hidden"}
-                    >
+                    <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                         {processSteps.map((step, index) => (
                             <motion.div
                                 key={step.title}
-                                variants={itemVariants}
-                                className="relative"
+                                className="relative bg-white rounded-xl shadow-lg overflow-hidden group border border-gray-100"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.1 }}
+                                whileHover={{ y: -5 }}
                             >
-                                <div className="relative h-64 rounded-lg overflow-hidden mb-6 group">
+                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#B5A642] to-[#B5A642]/60" />
+                                <div className="relative h-48">
                                     <Image
                                         src={step.image}
                                         alt={step.title}
                                         fill
-                                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                        className="object-cover transition-transform duration-500 group-hover:scale-110"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                    <div className="absolute top-4 left-4 w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl">
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                                    <div className="absolute top-4 left-4 w-12 h-12 bg-white rounded-xl flex items-center justify-center text-2xl shadow-lg">
                                         {step.icon}
                                     </div>
-                                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                                        <span className="inline-block px-3 py-1 bg-white/20 rounded-full text-white text-sm mb-2">
+                                    <div className="absolute bottom-4 left-4">
+                                        <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm">
                                             Étape {index + 1}
                                         </span>
                                     </div>
                                 </div>
-                                <h3 className="text-xl font-light mb-2" style={{ color: theme.colors.text.primary }}>
-                                    {step.title}
-                                </h3>
-                                <p className="text-base" style={{ color: theme.colors.text.secondary }}>
-                                    {step.description}
-                                </p>
+                                <div className="p-6">
+                                    <h3 className="text-xl font-light mb-3 text-[#1B1B3A]">
+                                        {step.title}
+                                    </h3>
+                                    <p className="text-[#1B1B3A]/70">
+                                        {step.description}
+                                    </p>
+                                </div>
                             </motion.div>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
-            {/* Contact Banner */}
-            <div className="mt-20">
-                <ContactBanner />
-            </div>
-
-            {/* Quote Request Modal */}
             <Modal isOpen={isQuoteModalOpen} onClose={() => setIsQuoteModalOpen(false)}>
-                <div className="p-6">
-                    <h2 className="text-2xl font-light mb-6">Demande de devis - {selectedQuoteProject?.title}</h2>
-                    <p className="mb-6 text-gray-600">
+                <div className="p-8">
+                    <h2 className="text-3xl font-light mb-6 text-[#1B1B3A]">Demande de devis - {selectedQuoteProject?.title}</h2>
+                    <p className="mb-6 text-[#1B1B3A]/70 text-lg">
                         Vous êtes intéressé par un projet similaire à notre réalisation "{selectedQuoteProject?.title}" à {selectedQuoteProject?.location}.
                         Décrivez-nous vos besoins et nous vous contacterons rapidement avec une proposition détaillée.
                     </p>
                     <QuoteRequestForm
                         service={selectedQuoteProject?.category}
                         onClose={() => setIsQuoteModalOpen(false)}
+                        submitButtonClassName="hover:bg-[#B5A642] hover:border-[#B5A642] transition-colors duration-300"
                     />
                 </div>
             </Modal>
+
+            <ContactBanner />
         </motion.main>
     )
 }

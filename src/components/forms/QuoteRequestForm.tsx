@@ -155,7 +155,7 @@ export default function QuoteRequestForm({ onClose, service }: QuoteRequestFormP
                         type="submit"
                         variant="primary"
                         disabled={isSubmitting}
-                        className="w-full sm:w-auto order-1 sm:order-2"
+                        className="w-full sm:w-auto order-1 sm:order-2 hover:bg-[#B5A642] hover:border-[#B5A642] transition-colors duration-300"
                     >
                         {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
                     </Button>
