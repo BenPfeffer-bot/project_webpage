@@ -265,7 +265,7 @@ export default function Realisations() {
                         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-3 sm:mb-4 md:mb-6 text-center">
                             Nos Réalisations
                         </h1>
-                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-center max-w-[90%] sm:max-w-[80%] md:max-w-2xl lg:max-w-3xl mx-auto text-white/90">
+                        <p className="text-sm sm:text-lg md:text-xl lg:text-2xl text-center max-w-[90%] sm:max-w-[80%] md:max-w-2xl lg:max-w-3xl mx-auto text-white/90">
                             Découvrez nos projets d'aménagement et de rénovation
                         </p>
                     </FadeIn>
@@ -307,11 +307,10 @@ export default function Realisations() {
                             <motion.button
                                 key={category}
                                 onClick={() => setSelectedCategory(category)}
-                                className={`flex-shrink-0 px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-xl text-base sm:text-lg transition-all duration-300 flex items-center space-x-2 ${
-                                    selectedCategory === category
-                                        ? 'bg-[#B5A642] text-white shadow-lg'
-                                        : 'bg-gray-50 text-[#1B1B3A]/70 hover:bg-gray-100'
-                                }`}
+                                className={`flex-shrink-0 px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-xl text-base sm:text-lg transition-all duration-300 flex items-center space-x-2 ${selectedCategory === category
+                                    ? 'bg-[#B5A642] text-white shadow-lg'
+                                    : 'bg-gray-50 text-[#1B1B3A]/70 hover:bg-gray-100'
+                                    }`}
                                 whileHover={{ scale: selectedCategory === category ? 1.05 : 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                             >
@@ -350,8 +349,8 @@ export default function Realisations() {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                 <div className="absolute inset-0 p-4 sm:p-6 flex flex-col justify-end text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <h3 className="text-xl sm:text-2xl font-light mb-2">{project.title}</h3>
-                                    <p className="text-sm sm:text-base text-white/90 mb-3 sm:mb-4">{project.description}</p>
+                                    <h3 className="text-lg sm:text-xl md:text-2xl font-light mb-2">{project.title}</h3>
+                                    <p className="text-xs sm:text-sm md:text-base text-white/90 mb-3 sm:mb-4">{project.description}</p>
                                     <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
                                         {project.tags.map((tag) => (
                                             <span
@@ -385,7 +384,7 @@ export default function Realisations() {
             <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-8 sm:mb-12 md:mb-16">
-                        <motion.h2 
+                        <motion.h2
                             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extralight mb-4 sm:mb-6 text-[#1B1B3A] tracking-wide"
                             initial={{ y: 20, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
@@ -393,7 +392,7 @@ export default function Realisations() {
                         >
                             Notre Processus
                         </motion.h2>
-                        <motion.p 
+                        <motion.p
                             className="text-base sm:text-lg md:text-xl text-[#1B1B3A]/70 max-w-xl sm:max-w-2xl mx-auto"
                             initial={{ y: 20, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
@@ -435,10 +434,10 @@ export default function Realisations() {
                                     </div>
                                 </div>
                                 <div className="p-4 sm:p-6">
-                                    <h3 className="text-lg sm:text-xl font-light mb-2 sm:mb-3 text-[#1B1B3A]">
+                                    <h3 className="text-base sm:text-lg md:text-xl font-light mb-2 sm:mb-3 text-[#1B1B3A]">
                                         {step.title}
                                     </h3>
-                                    <p className="text-sm sm:text-base text-[#1B1B3A]/70">
+                                    <p className="text-xs sm:text-sm md:text-base text-[#1B1B3A]/70">
                                         {step.description}
                                     </p>
                                 </div>

@@ -113,14 +113,14 @@ const ServiceCard = React.memo(({ service, index }: { service: typeof services[0
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
                         <div className="absolute bottom-0 left-0 right-0 p-6">
-                            <h3 className="text-2xl font-light text-white">{service.title}</h3>
+                            <h3 className="text-xl sm:text-2xl font-light text-white">{service.title}</h3>
                         </div>
                     </div>
                 </motion.div>
-                <p className="text-gray-600 mb-6">{service.description}</p>
+                <p className="text-sm sm:text-base text-gray-600 mb-6">{service.description}</p>
                 <ul className="space-y-2">
                     {service.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center gap-2 text-gray-600">
+                        <li key={idx} className="flex items-center gap-2 text-sm sm:text-base text-gray-600">
                             <span className="w-1.5 h-1.5 bg-black rounded-full"></span>
                             {feature}
                         </li>
@@ -297,10 +297,10 @@ export default function Home() {
                     </div>
                     <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4">
                         <ScrollAnimation variant="bounce">
-                            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 text-center">
+                            <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold mb-6 text-center">
                                 Pour L'Intérieur
                             </h1>
-                            <p className="text-xl sm:text-2xl md:text-3xl mb-12 text-center max-w-3xl mx-auto">
+                            <p className="text-lg sm:text-2xl md:text-3xl mb-12 text-center max-w-3xl mx-auto">
                                 Experts en rénovation et architecture d'intérieur à Paris
                             </p>
                             <div className="flex flex-wrap justify-center gap-4">
@@ -337,8 +337,8 @@ export default function Home() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             <ScrollAnimation variant="slideLeft">
                                 <div>
-                                    <h2 className="text-4xl font-light mb-6">Une Expertise Reconnue</h2>
-                                    <p className="text-xl text-gray-600 mb-8">
+                                    <h2 className="text-3xl sm:text-4xl font-light mb-6">Une Expertise Reconnue</h2>
+                                    <p className="text-base sm:text-xl text-gray-600 mb-8">
                                         Spécialistes de la rénovation et de l'aménagement d'intérieur à Paris
                                         et en Île-de-France, nous transformons vos espaces en lieux de vie exceptionnels.
                                     </p>
@@ -382,7 +382,7 @@ export default function Home() {
                 <section id="services" className="py-20 bg-gray-50 overflow-hidden">
                     <div className="max-w-7xl mx-auto px-4">
                         <ScrollAnimation variant="slideUp">
-                            <h2 className="text-4xl font-light mb-16 text-center">Nos Services</h2>
+                            <h2 className="text-3xl sm:text-4xl font-light mb-16 text-center">Nos Services</h2>
                         </ScrollAnimation>
 
                         {/* Services Slider */}
@@ -481,7 +481,7 @@ export default function Home() {
                             </div>
                         </ScrollAnimation>
                         <ScrollAnimation variant="rotate">
-                            <h2 className="text-4xl font-light mb-16 text-center">Notre Processus</h2>
+                            <h2 className="text-3xl sm:text-4xl font-light mb-16 text-center">Notre Processus</h2>
                         </ScrollAnimation>
                         <ScrollAnimation variant="stagger" staggerChildren={0.2}>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -495,11 +495,11 @@ export default function Home() {
                                                 {step.number}
                                             </motion.div>
                                             <div className="p-4 sm:p-6">
-                                                <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-[#1B1B3A]">
+                                                <h3 className="text-base sm:text-lg font-bold mb-2 sm:mb-3 text-[#1B1B3A]">
                                                     {step.title}
                                                 </h3>
                                             </div>
-                                            <p className="text-gray-600">{step.description}</p>
+                                            <p className="text-sm sm:text-base text-gray-600">{step.description}</p>
                                             {index < processSteps.length - 1 && (
                                                 <div className="hidden lg:block absolute top-8 right-0 w-full h-0.5 bg-gray-200 -z-10"></div>
                                             )}
@@ -517,8 +517,8 @@ export default function Home() {
                         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end mb-12 gap-4">
                             <FadeIn>
                                 <div>
-                                    <h2 className="text-4xl font-light mb-4">Projets Récents</h2>
-                                    <p className="text-xl text-gray-600">Découvrez nos dernières réalisations</p>
+                                    <h2 className="text-3xl sm:text-4xl font-light mb-4">Projets Récents</h2>
+                                    <p className="text-base sm:text-xl text-gray-600">Découvrez nos dernières réalisations</p>
                                 </div>
                             </FadeIn>
                             <FadeIn direction="left">
@@ -603,8 +603,8 @@ export default function Home() {
                 <section id="contact" className="py-20 bg-white">
                     <div className="max-w-4xl mx-auto px-4">
                         <ScrollAnimation variant="slideUp">
-                            <h2 className="text-4xl font-light mb-6 text-center">Contactez-nous</h2>
-                            <p className="text-xl text-gray-600 mb-12 text-center">
+                            <h2 className="text-3xl sm:text-4xl font-light mb-6 text-center">Contactez-nous</h2>
+                            <p className="text-base sm:text-xl text-gray-600 mb-12 text-center">
                                 Parlons de votre projet et transformons vos idées en réalité
                             </p>
                         </ScrollAnimation>

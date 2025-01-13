@@ -85,8 +85,8 @@ export default function Services() {
     const servicesRef = useRef(null)
     const isServicesInView = useInView(servicesRef, { once: true, margin: "-100px" })
 
-    const filteredServices = selectedCategory === 'all' 
-        ? services 
+    const filteredServices = selectedCategory === 'all'
+        ? services
         : services.filter(service => service.category === selectedCategory)
 
     const handleQuoteRequest = (serviceName: string) => {
@@ -120,7 +120,7 @@ export default function Services() {
                 </motion.div>
                 <div className="relative h-full max-w-7xl mx-auto px-4 flex flex-col justify-center items-center text-center">
                     <motion.h1
-                        className="text-5xl md:text-6xl lg:text-7xl text-white font-bold mb-6 tracking-wide"
+                        className="text-4xl md:text-6xl lg:text-7xl text-white font-bold mb-6 tracking-wide"
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.3, duration: 0.8 }}
@@ -128,7 +128,7 @@ export default function Services() {
                         Nos Services
                     </motion.h1>
                     <motion.p
-                        className="text-xl text-white/90 max-w-2xl"
+                        className="text-base sm:text-xl text-white/90 max-w-2xl"
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.5, duration: 0.8 }}
@@ -146,11 +146,10 @@ export default function Services() {
                             <motion.button
                                 key={category.id}
                                 onClick={() => setSelectedCategory(category.id)}
-                                className={`flex-shrink-0 px-6 py-3 rounded-full text-lg transition-all duration-300 flex items-center space-x-2 ${
-                                    selectedCategory === category.id
-                                        ? 'bg-[#B5A642] text-white shadow-lg'
-                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                }`}
+                                className={`flex-shrink-0 px-6 py-3 rounded-full text-lg transition-all duration-300 flex items-center space-x-2 ${selectedCategory === category.id
+                                    ? 'bg-[#B5A642] text-white shadow-lg'
+                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                    }`}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                             >
@@ -216,16 +215,16 @@ export default function Services() {
                 <div className="max-w-7xl mx-auto px-4">
                     <FadeIn>
                         <div className="text-center mb-16">
-                            <motion.h2 
-                                className="text-4xl md:text-5xl lg:text-6xl font-extralight mb-6 text-[#1B1B3A] tracking-wide"
+                            <motion.h2
+                                className="text-3xl md:text-5xl lg:text-6xl font-extralight mb-6 text-[#1B1B3A] tracking-wide"
                                 initial={{ y: 20, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
                                 transition={{ duration: 0.8 }}
                             >
                                 Nos Engagements
                             </motion.h2>
-                            <motion.p 
-                                className="text-xl text-[#1B1B3A]/80 max-w-2xl mx-auto"
+                            <motion.p
+                                className="text-base sm:text-xl text-[#1B1B3A]/80 max-w-2xl mx-auto"
                                 initial={{ y: 20, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
                                 transition={{ delay: 0.2, duration: 0.8 }}
@@ -244,19 +243,19 @@ export default function Services() {
                             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#B5A642] to-[#B5A642]/80 flex items-center justify-center mb-6">
                                 <SparklesIcon className="w-8 h-8 text-white" />
                             </div>
-                            <h3 className="text-2xl font-light mb-4 text-[#1B1B3A]">Éco-responsabilité</h3>
+                            <h3 className="text-lg sm:text-xl font-light mb-4 text-[#1B1B3A]">Éco-responsabilité</h3>
                             <ul className="space-y-4">
                                 <li className="flex items-start gap-3">
                                     <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-[#1B1B3A]/80">Utilisation de matériaux écologiques</span>
+                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Utilisation de matériaux écologiques</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-[#1B1B3A]/80">Gestion responsable des déchets</span>
+                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Gestion responsable des déchets</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-[#1B1B3A]/80">Solutions d'isolation performantes</span>
+                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Solutions d'isolation performantes</span>
                                 </li>
                             </ul>
                         </motion.div>
@@ -269,19 +268,19 @@ export default function Services() {
                             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#B5A642] to-[#B5A642]/80 flex items-center justify-center mb-6">
                                 <ShieldCheckIcon className="w-8 h-8 text-white" />
                             </div>
-                            <h3 className="text-2xl font-light mb-4 text-[#1B1B3A]">Qualité & Sécurité</h3>
+                            <h3 className="text-lg sm:text-xl font-light mb-4 text-[#1B1B3A]">Qualité & Sécurité</h3>
                             <ul className="space-y-4">
                                 <li className="flex items-start gap-3">
                                     <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-[#1B1B3A]/80">Matériaux haut de gamme certifiés</span>
+                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Matériaux haut de gamme certifiés</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-[#1B1B3A]/80">Personnel hautement qualifié</span>
+                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Personnel hautement qualifié</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-[#1B1B3A]/80">Respect des normes de sécurité</span>
+                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Respect des normes de sécurité</span>
                                 </li>
                             </ul>
                         </motion.div>
@@ -294,19 +293,19 @@ export default function Services() {
                             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#B5A642] to-[#B5A642]/80 flex items-center justify-center mb-6">
                                 <UserGroupIcon className="w-8 h-8 text-white" />
                             </div>
-                            <h3 className="text-2xl font-light mb-4 text-[#1B1B3A]">Service Client</h3>
+                            <h3 className="text-lg sm:text-xl font-light mb-4 text-[#1B1B3A]">Service Client</h3>
                             <ul className="space-y-4">
                                 <li className="flex items-start gap-3">
                                     <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-[#1B1B3A]/80">Suivi personnalisé des projets</span>
+                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Suivi personnalisé des projets</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-[#1B1B3A]/80">Respect des délais</span>
+                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Respect des délais</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-[#1B1B3A]/80">Service après-vente réactif</span>
+                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Service après-vente réactif</span>
                                 </li>
                             </ul>
                         </motion.div>
@@ -319,16 +318,16 @@ export default function Services() {
                 <div className="max-w-7xl mx-auto px-4">
                     <FadeIn>
                         <div className="text-center mb-16">
-                            <motion.h2 
-                                className="text-4xl md:text-5xl lg:text-6xl font-extralight mb-6 text-[#1B1B3A] tracking-wide"
+                            <motion.h2
+                                className="text-3xl md:text-5xl lg:text-6xl font-extralight mb-6 text-[#1B1B3A] tracking-wide"
                                 initial={{ y: 20, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
                                 transition={{ duration: 0.8 }}
                             >
                                 Questions Fréquentes
                             </motion.h2>
-                            <motion.p 
-                                className="text-xl text-[#1B1B3A]/80 max-w-2xl mx-auto"
+                            <motion.p
+                                className="text-base sm:text-xl text-[#1B1B3A]/80 max-w-2xl mx-auto"
                                 initial={{ y: 20, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
                                 transition={{ delay: 0.2, duration: 0.8 }}
@@ -347,10 +346,10 @@ export default function Services() {
                             <div className="flex items-start gap-4">
                                 <span className="text-2xl">🕒</span>
                                 <div>
-                                    <h3 className="text-xl font-light mb-3 text-[#1B1B3A]">
+                                    <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
                                         Combien de temps durent généralement les travaux ?
                                     </h3>
-                                    <p className="text-[#1B1B3A]/80 leading-relaxed">
+                                    <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
                                         La durée des travaux varie selon l'ampleur du projet. Une rénovation complète peut prendre de 2 à 6 mois, tandis que des travaux spécifiques peuvent être réalisés en quelques semaines. Nous établissons un planning détaillé lors du devis.
                                     </p>
                                 </div>
@@ -365,10 +364,10 @@ export default function Services() {
                             <div className="flex items-start gap-4">
                                 <span className="text-2xl">🛡️</span>
                                 <div>
-                                    <h3 className="text-xl font-light mb-3 text-[#1B1B3A]">
+                                    <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
                                         Êtes-vous assurés pour tous les travaux ?
                                     </h3>
-                                    <p className="text-[#1B1B3A]/80 leading-relaxed">
+                                    <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
                                         Oui, nous disposons de toutes les assurances nécessaires, notamment la garantie décennale. Chaque projet est couvert par nos assurances professionnelles pour votre tranquillité.
                                     </p>
                                 </div>
@@ -383,10 +382,10 @@ export default function Services() {
                             <div className="flex items-start gap-4">
                                 <span className="text-2xl">🏗️</span>
                                 <div>
-                                    <h3 className="text-xl font-light mb-3 text-[#1B1B3A]">
+                                    <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
                                         Comment se déroule un projet de rénovation ?
                                     </h3>
-                                    <p className="text-[#1B1B3A]/80 leading-relaxed">
+                                    <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
                                         Nous commençons par une consultation gratuite pour comprendre vos besoins. Ensuite, nous établissons un devis détaillé, planifions les travaux, et assurons un suivi régulier tout au long du projet jusqu'à la réception finale.
                                     </p>
                                 </div>
@@ -401,10 +400,10 @@ export default function Services() {
                             <div className="flex items-start gap-4">
                                 <span className="text-2xl">💰</span>
                                 <div>
-                                    <h3 className="text-xl font-light mb-3 text-[#1B1B3A]">
+                                    <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
                                         Comment sont établis vos devis ?
                                     </h3>
-                                    <p className="text-[#1B1B3A]/80 leading-relaxed">
+                                    <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
                                         Nos devis sont gratuits et détaillés. Après une visite sur site et l'évaluation précise de vos besoins, nous vous fournissons un devis transparent qui inclut tous les aspects du projet, sans frais cachés.
                                     </p>
                                 </div>
