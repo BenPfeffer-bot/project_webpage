@@ -68,7 +68,7 @@ export default function QuiSommesNous() {
                         Notre Histoire
                     </motion.span>
                     <motion.h1
-                        className="text-5xl md:text-6xl lg:text-7xl text-white font-extralight tracking-wide"
+                        className="text-5xl md:text-6xl lg:text-7xl text-white font-bold tracking-wide"
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.5, duration: 0.8 }}
@@ -82,7 +82,7 @@ export default function QuiSommesNous() {
             <section className="max-w-7xl mx-auto px-4 mb-24">
                 <FadeIn>
                     <div className="prose prose-lg max-w-none">
-                        <h2 className="text-4xl font-extralight mb-12 text-gray-800 tracking-wide">POUR L'INTÉRIEUR</h2>
+                        <h2 className="text-4xl font-bold mb-12 text-gray-800 tracking-wide">POUR L'INTÉRIEUR</h2>
                         <div className="grid grid-cols-1 md:grid-cols-[2fr,1fr] gap-12">
                             <div>
                                 <p className="text-xl leading-relaxed mb-8 text-gray-700">

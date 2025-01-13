@@ -297,7 +297,7 @@ export default function Home() {
                     </div>
                     <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4">
                         <ScrollAnimation variant="bounce">
-                            <h1 className="text-5xl sm:text-6xl md:text-7xl font-light mb-6 text-center">
+                            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 text-center">
                                 Pour L'Intérieur
                             </h1>
                             <p className="text-xl sm:text-2xl md:text-3xl mb-12 text-center max-w-3xl mx-auto">
@@ -494,7 +494,11 @@ export default function Home() {
                                             >
                                                 {step.number}
                                             </motion.div>
-                                            <h3 className="text-2xl font-light mb-4">{step.title}</h3>
+                                            <div className="p-4 sm:p-6">
+                                                <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-[#1B1B3A]">
+                                                    {step.title}
+                                                </h3>
+                                            </div>
                                             <p className="text-gray-600">{step.description}</p>
                                             {index < processSteps.length - 1 && (
                                                 <div className="hidden lg:block absolute top-8 right-0 w-full h-0.5 bg-gray-200 -z-10"></div>

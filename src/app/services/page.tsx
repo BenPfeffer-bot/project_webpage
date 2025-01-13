@@ -120,7 +120,7 @@ export default function Services() {
                 </motion.div>
                 <div className="relative h-full max-w-7xl mx-auto px-4 flex flex-col justify-center items-center text-center">
                     <motion.h1
-                        className="text-5xl md:text-6xl lg:text-7xl text-white font-extralight mb-6 tracking-wide"
+                        className="text-5xl md:text-6xl lg:text-7xl text-white font-bold mb-6 tracking-wide"
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.3, duration: 0.8 }}
