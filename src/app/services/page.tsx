@@ -119,6 +119,48 @@ const faqs = [
     }
 ]
 
+const engagements = [
+    {
+        icon: SparklesIcon,
+        title: 'Éco-responsabilité',
+        description: 'Notre engagement envers l\'environnement',
+        features: [
+            'Utilisation de matériaux écologiques',
+            'Gestion responsable des déchets',
+            'Solutions d\'isolation performantes'
+        ],
+        color: 'from-emerald-500 to-emerald-600',
+        bgPattern: 'bg-[radial-gradient(#22c55e_1px,transparent_1px)] bg-[length:16px_16px]',
+        // stats: { value: '80%', label: 'Matériaux écologiques' }
+    },
+    {
+        icon: ShieldCheckIcon,
+        title: 'Qualité & Sécurité',
+        description: 'L\'excellence dans chaque détail',
+        features: [
+            'Matériaux haut de gamme certifiés',
+            'Personnel hautement qualifié',
+            'Respect des normes de sécurité'
+        ],
+        color: 'from-[#B5A642] to-[#9A8A38]',
+        bgPattern: 'bg-[radial-gradient(#B5A642_1px,transparent_1px)] bg-[length:16px_16px]',
+        // stats: { value: '100%', label: 'Satisfaction client' }
+    },
+    {
+        icon: UserGroupIcon,
+        title: 'Service Client',
+        description: 'Votre satisfaction, notre priorité',
+        features: [
+            'Suivi personnalisé des projets',
+            'Respect des délais',
+            'Service après-vente réactif'
+        ],
+        color: 'from-indigo-500 to-indigo-600',
+        bgPattern: 'bg-[radial-gradient(#6366f1_1px,transparent_1px)] bg-[length:16px_16px]',
+        // stats: { value: '24/7', label: 'Support client' }
+    }
+]
+
 // Enhanced FAQ Accordion component
 const FAQAccordion = ({ faq, isOpen, onToggle, index }: {
     faq: typeof faqs[0],
@@ -476,10 +518,19 @@ export default function Services() {
             </section>
 
             {/* Nos Engagements Section */}
-            <section className="py-24 bg-gray-50">
-                <div className="max-w-7xl mx-auto px-4">
+            <section className="py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+                <div className="absolute inset-0 bg-[#B5A642]/5 pattern-grid-lg opacity-30" />
+                <div className="max-w-7xl mx-auto px-4 relative">
                     <FadeIn>
                         <div className="text-center mb-16">
+                            <motion.span
+                                className="inline-block text-sm md:text-base text-[#B5A642] font-medium px-4 py-2 rounded-full bg-[#B5A642]/10 mb-4"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5 }}
+                            >
+                                Notre Philosophie
+                            </motion.span>
                             <motion.h2
                                 className="text-3xl md:text-5xl lg:text-6xl font-extralight mb-6 text-[#1B1B3A] tracking-wide"
                                 initial={{ y: 20, opacity: 0 }}
@@ -499,82 +550,77 @@ export default function Services() {
                         </div>
                     </FadeIn>
 
-                    {/* Nos Engagements Grid */}
-                    <div className="flex overflow-x-auto md:grid md:grid-cols-3 gap-8 hide-scrollbar pb-4 md:pb-0">
-                        <motion.div
-                            className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex-shrink-0 w-[300px] md:w-auto"
-                            whileHover={{ y: -5 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#B5A642] to-[#B5A642]/80 flex items-center justify-center mb-6">
-                                <SparklesIcon className="w-8 h-8 text-white" />
-                            </div>
-                            <h3 className="text-lg sm:text-xl font-light mb-4 text-[#1B1B3A]">Éco-responsabilité</h3>
-                            <ul className="space-y-4">
-                                <li className="flex items-start gap-3">
-                                    <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Utilisation de matériaux écologiques</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                    <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Gestion responsable des déchets</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                    <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Solutions d'isolation performantes</span>
-                                </li>
-                            </ul>
-                        </motion.div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                        {engagements.map((engagement, index) => (
+                            <motion.div
+                                key={engagement.title}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: index * 0.2 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                className="relative group perspective"
+                            >
+                                <motion.div
+                                    className="absolute inset-0 bg-gradient-to-br from-white to-gray-50 rounded-2xl transform transition-all duration-500 group-hover:scale-105"
+                                    style={{
+                                        transformStyle: "preserve-3d",
+                                        transform: "rotateX(0deg) rotateY(0deg)"
+                                    }}
+                                    whileHover={{
+                                        rotateX: 5,
+                                        rotateY: 5
+                                    }}
+                                />
+                                <div className={`absolute inset-0 ${engagement.bgPattern} opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-500 rounded-2xl`} />
+                                <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100 p-8 h-full transform transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl">
+                                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r opacity-50 group-hover:opacity-100 transition-opacity duration-500 rounded-t-2xl" style={{ backgroundImage: `linear-gradient(to right, ${engagement.color.split(' ')[1]}, ${engagement.color.split(' ')[2]})` }} />
 
-                        <motion.div
-                            className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex-shrink-0 w-[300px] md:w-auto"
-                            whileHover={{ y: -5 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#B5A642] to-[#B5A642]/80 flex items-center justify-center mb-6">
-                                <ShieldCheckIcon className="w-8 h-8 text-white" />
-                            </div>
-                            <h3 className="text-lg sm:text-xl font-light mb-4 text-[#1B1B3A]">Qualité & Sécurité</h3>
-                            <ul className="space-y-4">
-                                <li className="flex items-start gap-3">
-                                    <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Matériaux haut de gamme certifiés</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                    <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Personnel hautement qualifié</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                    <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Respect des normes de sécurité</span>
-                                </li>
-                            </ul>
-                        </motion.div>
+                                    <div className="flex items-start justify-between mb-6">
+                                        <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${engagement.color} flex items-center justify-center transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg`}>
+                                            <engagement.icon className="w-8 h-8 text-white" />
+                                        </div>
+                                        <div className="text-right">
+                                            <span className="block text-2xl font-bold text-[#1B1B3A]">
+                                                {/* {engagement.stats.value} */}
+                                            </span>
+                                            <span className="text-sm text-[#1B1B3A]/60">
+                                                {/* {engagement.stats.label} */}
+                                            </span>
+                                        </div>
+                                    </div>
 
-                        <motion.div
-                            className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex-shrink-0 w-[300px] md:w-auto"
-                            whileHover={{ y: -5 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#B5A642] to-[#B5A642]/80 flex items-center justify-center mb-6">
-                                <UserGroupIcon className="w-8 h-8 text-white" />
-                            </div>
-                            <h3 className="text-lg sm:text-xl font-light mb-4 text-[#1B1B3A]">Service Client</h3>
-                            <ul className="space-y-4">
-                                <li className="flex items-start gap-3">
-                                    <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Suivi personnalisé des projets</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                    <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Respect des délais</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                    <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#B5A642]" />
-                                    <span className="text-sm sm:text-base text-[#1B1B3A]/80">Service après-vente réactif</span>
-                                </li>
-                            </ul>
-                        </motion.div>
+                                    <h3 className="text-xl md:text-2xl font-light mb-3 text-[#1B1B3A] tracking-wide group-hover:text-[#B5A642] transition-colors duration-300">
+                                        {engagement.title}
+                                    </h3>
+                                    <p className="text-[#1B1B3A]/70 mb-6">
+                                        {engagement.description}
+                                    </p>
+                                    <ul className="space-y-4">
+                                        {engagement.features.map((feature, featureIndex) => (
+                                            <motion.li
+                                                key={feature}
+                                                initial={{ opacity: 0, x: -20 }}
+                                                whileInView={{ opacity: 1, x: 0 }}
+                                                transition={{ duration: 0.3, delay: index * 0.1 + featureIndex * 0.1 }}
+                                                viewport={{ once: true }}
+                                                className="flex items-start gap-3 group/item"
+                                            >
+                                                <motion.div
+                                                    whileHover={{ scale: 1.2, rotate: 180 }}
+                                                    transition={{ duration: 0.3 }}
+                                                    className={`w-6 h-6 flex-shrink-0 rounded-full bg-gradient-to-br ${engagement.color} flex items-center justify-center shadow-sm group-hover/item:shadow-md transition-shadow duration-300`}
+                                                >
+                                                    <CheckCircleIcon className="w-4 h-4 text-white" />
+                                                </motion.div>
+                                                <span className="text-sm md:text-base text-[#1B1B3A]/80 group-hover/item:text-[#1B1B3A] transition-colors duration-300">
+                                                    {feature}
+                                                </span>
+                                            </motion.li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             </section>
