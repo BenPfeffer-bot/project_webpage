@@ -140,25 +140,27 @@ export default function Services() {
 
             {/* Categories Filter */}
             <section className="max-w-7xl mx-auto px-4 mb-16">
-                <div className="flex flex-wrap justify-center gap-4">
-                    {categories.map((category) => (
-                        <motion.button
-                            key={category.id}
-                            onClick={() => setSelectedCategory(category.id)}
-                            className={`px-6 py-3 rounded-full text-lg transition-all duration-300 flex items-center space-x-2 ${
-                                selectedCategory === category.id
-                                    ? 'bg-[#B5A642] text-white shadow-lg'
-                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                            }`}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            {category.icon && (
-                                <category.icon className="w-5 h-5" />
-                            )}
-                            <span>{category.name}</span>
-                        </motion.button>
-                    ))}
+                <div className="bg-white p-4 sm:p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+                    <div className="flex overflow-x-auto pb-2 sm:pb-0 sm:flex-wrap sm:justify-center gap-3 sm:gap-4 hide-scrollbar">
+                        {categories.map((category) => (
+                            <motion.button
+                                key={category.id}
+                                onClick={() => setSelectedCategory(category.id)}
+                                className={`flex-shrink-0 px-6 py-3 rounded-full text-lg transition-all duration-300 flex items-center space-x-2 ${
+                                    selectedCategory === category.id
+                                        ? 'bg-[#B5A642] text-white shadow-lg'
+                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                }`}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                {category.icon && (
+                                    <category.icon className="w-5 h-5" />
+                                )}
+                                <span>{category.name}</span>
+                            </motion.button>
+                        ))}
+                    </div>
                 </div>
             </section>
 

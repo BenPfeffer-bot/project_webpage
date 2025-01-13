@@ -247,7 +247,7 @@ export default function Realisations() {
             transition={{ duration: 0.5 }}
         >
             {/* Hero Section */}
-            <section className="relative h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[90vh] mb-12 sm:mb-16 md:mb-20">
+            <section className="relative h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh] mb-8 sm:mb-12 md:mb-16">
                 <div className="absolute inset-0">
                     <Image
                         src="/project_1.jpg"
@@ -255,22 +255,17 @@ export default function Realisations() {
                         fill
                         className="object-cover object-center"
                         priority
-                        sizes="100vw"
+                        sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 100vw, 100vw"
                         quality={90}
                     />
-                    <div
-                        className="absolute inset-0"
-                        style={{
-                            background: `linear-gradient(to bottom, ${theme.colors.overlay.dark} 0%, rgba(0,0,0,0.4) 100%)`
-                        }}
-                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/30" />
                 </div>
-                <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4 sm:px-6 md:px-8">
+                <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4 sm:px-6 lg:px-8">
                     <FadeIn>
-                        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light mb-4 sm:mb-5 md:mb-6 text-center">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light mb-3 sm:mb-4 md:mb-6 text-center">
                             Nos Réalisations
                         </h1>
-                        <p className="text-lg sm:text-xl md:text-2xl text-center max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto">
+                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-center max-w-[90%] sm:max-w-[80%] md:max-w-2xl lg:max-w-3xl mx-auto text-white/90">
                             Découvrez nos projets d'aménagement et de rénovation
                         </p>
                     </FadeIn>
@@ -278,24 +273,24 @@ export default function Realisations() {
             </section>
 
             {/* Statistics Section */}
-            <section className="py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+            <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-[#B5A642]/5 pattern-grid-lg opacity-30" />
-                <div className="max-w-7xl mx-auto px-4 relative">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
                         {statistics.map((stat) => (
                             <motion.div
                                 key={stat.label}
-                                className="relative bg-white p-8 rounded-xl shadow-lg border border-gray-100 group hover:shadow-xl transition-all duration-300"
+                                className="relative bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-100 group hover:shadow-xl transition-all duration-300"
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 whileHover={{ y: -5 }}
                             >
                                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#B5A642] to-[#B5A642]/60" />
-                                <h3 className="text-4xl md:text-5xl lg:text-6xl font-extralight mb-4 text-[#1B1B3A] tracking-wide">
+                                <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extralight mb-3 sm:mb-4 text-[#1B1B3A] tracking-wide">
                                     {stat.number}
                                 </h3>
-                                <p className="text-[#1B1B3A]/70 text-lg">
+                                <p className="text-base sm:text-lg text-[#1B1B3A]/70">
                                     {stat.label}
                                 </p>
                             </motion.div>
@@ -305,14 +300,14 @@ export default function Realisations() {
             </section>
 
             {/* Category Filter */}
-            <section className="max-w-7xl mx-auto px-4 mb-16">
-                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
-                    <div className="flex flex-wrap justify-center gap-4">
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12 md:mb-16">
+                <div className="bg-white p-4 sm:p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+                    <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
                         {categories.map((category) => (
                             <motion.button
                                 key={category}
                                 onClick={() => setSelectedCategory(category)}
-                                className={`px-8 py-3 rounded-xl text-lg transition-all duration-300 flex items-center space-x-2 ${
+                                className={`px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-xl text-base sm:text-lg transition-all duration-300 flex items-center space-x-2 ${
                                     selectedCategory === category
                                         ? 'bg-[#B5A642] text-white shadow-lg scale-105'
                                         : 'bg-gray-50 text-[#1B1B3A]/70 hover:bg-gray-100'
@@ -320,11 +315,11 @@ export default function Realisations() {
                                 whileHover={{ scale: selectedCategory === category ? 1.05 : 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                             >
-                                {category === 'Tous' && <span className="text-xl">🏠</span>}
-                                {category === 'Rénovation' && <span className="text-xl">🔨</span>}
-                                {category === 'Peinture' && <span className="text-xl">🎨</span>}
-                                {category === 'Maçonnerie' && <span className="text-xl">🧱</span>}
-                                {category === 'Plâtrerie' && <span className="text-xl">✨</span>}
+                                {category === 'Tous' && <span className="text-lg sm:text-xl">🏠</span>}
+                                {category === 'Rénovation' && <span className="text-lg sm:text-xl">🔨</span>}
+                                {category === 'Peinture' && <span className="text-lg sm:text-xl">🎨</span>}
+                                {category === 'Maçonnerie' && <span className="text-lg sm:text-xl">🧱</span>}
+                                {category === 'Plâtrerie' && <span className="text-lg sm:text-xl">✨</span>}
                                 <span>{category}</span>
                             </motion.button>
                         ))}
@@ -333,8 +328,8 @@ export default function Realisations() {
             </section>
 
             {/* Projects Grid */}
-            <section className="max-w-7xl mx-auto px-4 mb-24">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16 md:mb-20 lg:mb-24">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
                     {filteredProjects.map((project, index) => (
                         <motion.div
                             key={project.title}
@@ -345,22 +340,23 @@ export default function Realisations() {
                             transition={{ delay: index * 0.1 }}
                             whileHover={{ y: -5 }}
                         >
-                            <div className="relative h-80">
+                            <div className="relative h-64 sm:h-72 md:h-80">
                                 <Image
                                     src={project.image}
                                     alt={project.title}
                                     fill
                                     className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                <div className="absolute inset-0 p-6 flex flex-col justify-end text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <h3 className="text-2xl font-light mb-2">{project.title}</h3>
-                                    <p className="text-white/90 mb-4">{project.description}</p>
-                                    <div className="flex flex-wrap gap-2 mb-4">
+                                <div className="absolute inset-0 p-4 sm:p-6 flex flex-col justify-end text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <h3 className="text-xl sm:text-2xl font-light mb-2">{project.title}</h3>
+                                    <p className="text-sm sm:text-base text-white/90 mb-3 sm:mb-4">{project.description}</p>
+                                    <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
                                         {project.tags.map((tag) => (
                                             <span
                                                 key={tag}
-                                                className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-sm"
+                                                className="px-2 sm:px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs sm:text-sm"
                                             >
                                                 {tag}
                                             </span>
@@ -368,12 +364,12 @@ export default function Realisations() {
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <p className="text-sm text-white/80">{project.location}</p>
-                                            <p className="text-sm text-white/60">{project.year}</p>
+                                            <p className="text-xs sm:text-sm text-white/80">{project.location}</p>
+                                            <p className="text-xs sm:text-sm text-white/60">{project.year}</p>
                                         </div>
                                         <Button
                                             onClick={() => handleQuoteRequest(project)}
-                                            className="bg-[#B5A642] hover:bg-[#B5A642]/90 text-white"
+                                            className="text-sm sm:text-base bg-[#B5A642] hover:bg-[#B5A642]/90 text-white"
                                         >
                                             En savoir plus
                                         </Button>
@@ -386,11 +382,11 @@ export default function Realisations() {
             </section>
 
             {/* Process Section */}
-            <section className="py-24 bg-gray-50">
-                <div className="max-w-7xl mx-auto px-4">
-                    <div className="text-center mb-16">
+            <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-8 sm:mb-12 md:mb-16">
                         <motion.h2 
-                            className="text-4xl md:text-5xl lg:text-6xl font-extralight mb-6 text-[#1B1B3A] tracking-wide"
+                            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extralight mb-4 sm:mb-6 text-[#1B1B3A] tracking-wide"
                             initial={{ y: 20, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             viewport={{ once: true }}
@@ -398,7 +394,7 @@ export default function Realisations() {
                             Notre Processus
                         </motion.h2>
                         <motion.p 
-                            className="text-xl text-[#1B1B3A]/70 max-w-2xl mx-auto"
+                            className="text-base sm:text-lg md:text-xl text-[#1B1B3A]/70 max-w-xl sm:max-w-2xl mx-auto"
                             initial={{ y: 20, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             viewport={{ once: true }}
@@ -408,7 +404,7 @@ export default function Realisations() {
                         </motion.p>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10">
                         {processSteps.map((step, index) => (
                             <motion.div
                                 key={step.title}
@@ -420,28 +416,29 @@ export default function Realisations() {
                                 whileHover={{ y: -5 }}
                             >
                                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#B5A642] to-[#B5A642]/60" />
-                                <div className="relative h-48">
+                                <div className="relative h-40 sm:h-48">
                                     <Image
                                         src={step.image}
                                         alt={step.title}
                                         fill
                                         className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                        sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 25vw"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                                    <div className="absolute top-4 left-4 w-12 h-12 bg-white rounded-xl flex items-center justify-center text-2xl shadow-lg">
+                                    <div className="absolute top-4 left-4 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-xl flex items-center justify-center text-xl sm:text-2xl shadow-lg">
                                         {step.icon}
                                     </div>
                                     <div className="absolute bottom-4 left-4">
-                                        <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm">
+                                        <span className="inline-block px-2 sm:px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs sm:text-sm text-white">
                                             Étape {index + 1}
                                         </span>
                                     </div>
                                 </div>
-                                <div className="p-6">
-                                    <h3 className="text-xl font-light mb-3 text-[#1B1B3A]">
+                                <div className="p-4 sm:p-6">
+                                    <h3 className="text-lg sm:text-xl font-light mb-2 sm:mb-3 text-[#1B1B3A]">
                                         {step.title}
                                     </h3>
-                                    <p className="text-[#1B1B3A]/70">
+                                    <p className="text-sm sm:text-base text-[#1B1B3A]/70">
                                         {step.description}
                                     </p>
                                 </div>
@@ -452,16 +449,17 @@ export default function Realisations() {
             </section>
 
             <Modal isOpen={isQuoteModalOpen} onClose={() => setIsQuoteModalOpen(false)}>
-                <div className="p-8">
-                    <h2 className="text-3xl font-light mb-6 text-[#1B1B3A]">Demande de devis - {selectedQuoteProject?.title}</h2>
-                    <p className="mb-6 text-[#1B1B3A]/70 text-lg">
+                <div className="p-4 sm:p-6 md:p-8">
+                    <h2 className="text-2xl sm:text-3xl font-light mb-4 sm:mb-6 text-[#1B1B3A]">
+                        Demande de devis - {selectedQuoteProject?.title}
+                    </h2>
+                    <p className="text-base sm:text-lg text-[#1B1B3A]/70 mb-6">
                         Vous êtes intéressé par un projet similaire à notre réalisation "{selectedQuoteProject?.title}" à {selectedQuoteProject?.location}.
                         Décrivez-nous vos besoins et nous vous contacterons rapidement avec une proposition détaillée.
                     </p>
                     <QuoteRequestForm
                         service={selectedQuoteProject?.category}
                         onClose={() => setIsQuoteModalOpen(false)}
-                        submitButtonClassName="hover:bg-[#B5A642] hover:border-[#B5A642] transition-colors duration-300"
                     />
                 </div>
             </Modal>
