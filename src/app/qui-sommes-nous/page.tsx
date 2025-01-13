@@ -158,9 +158,9 @@ export default function QuiSommesNous() {
                     </div>
 
                     {/* Statistics Boxes */}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+                    <div className="flex overflow-x-auto lg:grid lg:grid-cols-4 gap-8 mt-16 hide-scrollbar pb-4 lg:pb-0">
                         <motion.div
-                            className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden group"
+                            className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden group flex-shrink-0 w-[300px] lg:w-auto"
                             whileHover={{
                                 scale: 1.03,
                                 boxShadow: "0 25px 35px -5px rgba(0, 0, 0, 0.1), 0 10px 15px -5px rgba(0, 0, 0, 0.05)"
@@ -180,7 +180,7 @@ export default function QuiSommesNous() {
                         </motion.div>
 
                         <motion.div
-                            className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden group"
+                            className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden group flex-shrink-0 w-[300px] lg:w-auto"
                             whileHover={{
                                 scale: 1.03,
                                 boxShadow: "0 25px 35px -5px rgba(0, 0, 0, 0.1), 0 10px 15px -5px rgba(0, 0, 0, 0.05)"
@@ -200,7 +200,7 @@ export default function QuiSommesNous() {
                         </motion.div>
 
                         <motion.div
-                            className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden group"
+                            className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden group flex-shrink-0 w-[300px] lg:w-auto"
                             whileHover={{
                                 scale: 1.03,
                                 boxShadow: "0 25px 35px -5px rgba(0, 0, 0, 0.1), 0 10px 15px -5px rgba(0, 0, 0, 0.05)"
@@ -220,7 +220,7 @@ export default function QuiSommesNous() {
                         </motion.div>
 
                         <motion.div
-                            className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden group"
+                            className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden group flex-shrink-0 w-[300px] lg:w-auto"
                             whileHover={{
                                 scale: 1.03,
                                 boxShadow: "0 25px 35px -5px rgba(0, 0, 0, 0.1), 0 10px 15px -5px rgba(0, 0, 0, 0.05)"

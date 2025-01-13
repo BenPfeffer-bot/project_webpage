@@ -403,11 +403,11 @@ export default function Realisations() {
                         </motion.p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10">
+                    <div className="flex overflow-x-auto lg:grid lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 hide-scrollbar pb-4 lg:pb-0">
                         {processSteps.map((step, index) => (
                             <motion.div
                                 key={step.title}
-                                className="relative bg-white rounded-xl shadow-lg overflow-hidden group border border-gray-100"
+                                className="relative bg-white rounded-xl shadow-lg overflow-hidden group border border-gray-100 flex-shrink-0 w-[300px] lg:w-auto"
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}

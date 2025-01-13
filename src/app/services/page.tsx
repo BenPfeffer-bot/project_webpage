@@ -234,9 +234,10 @@ export default function Services() {
                         </div>
                     </FadeIn>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {/* Nos Engagements Grid */}
+                    <div className="flex overflow-x-auto md:grid md:grid-cols-3 gap-8 hide-scrollbar pb-4 md:pb-0">
                         <motion.div
-                            className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100"
+                            className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex-shrink-0 w-[300px] md:w-auto"
                             whileHover={{ y: -5 }}
                             transition={{ duration: 0.3 }}
                         >
@@ -261,7 +262,7 @@ export default function Services() {
                         </motion.div>
 
                         <motion.div
-                            className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100"
+                            className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex-shrink-0 w-[300px] md:w-auto"
                             whileHover={{ y: -5 }}
                             transition={{ duration: 0.3 }}
                         >
@@ -286,7 +287,7 @@ export default function Services() {
                         </motion.div>
 
                         <motion.div
-                            className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100"
+                            className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex-shrink-0 w-[300px] md:w-auto"
                             whileHover={{ y: -5 }}
                             transition={{ duration: 0.3 }}
                         >
@@ -338,77 +339,79 @@ export default function Services() {
                     </FadeIn>
 
                     <div className="max-w-4xl mx-auto space-y-6">
-                        <motion.div
-                            className="bg-gray-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
-                            whileHover={{ scale: 1.02 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <div className="flex items-start gap-4">
-                                <span className="text-2xl">🕒</span>
-                                <div>
-                                    <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
-                                        Combien de temps durent généralement les travaux ?
-                                    </h3>
-                                    <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
-                                        La durée des travaux varie selon l'ampleur du projet. Une rénovation complète peut prendre de 2 à 6 mois, tandis que des travaux spécifiques peuvent être réalisés en quelques semaines. Nous établissons un planning détaillé lors du devis.
-                                    </p>
+                        <div className="flex overflow-x-auto gap-6 hide-scrollbar pb-4">
+                            <motion.div
+                                className="bg-gray-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 flex-shrink-0 w-[300px] sm:w-[400px]"
+                                whileHover={{ scale: 1.02 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <div className="flex items-start gap-4">
+                                    <span className="text-2xl">🕒</span>
+                                    <div>
+                                        <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
+                                            Combien de temps durent généralement les travaux ?
+                                        </h3>
+                                        <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
+                                            La durée des travaux varie selon l'ampleur du projet. Une rénovation complète peut prendre de 2 à 6 mois, tandis que des travaux spécifiques peuvent être réalisés en quelques semaines. Nous établissons un planning détaillé lors du devis.
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        </motion.div>
+                            </motion.div>
 
-                        <motion.div
-                            className="bg-gray-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
-                            whileHover={{ scale: 1.02 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <div className="flex items-start gap-4">
-                                <span className="text-2xl">🛡️</span>
-                                <div>
-                                    <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
-                                        Êtes-vous assurés pour tous les travaux ?
-                                    </h3>
-                                    <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
-                                        Oui, nous disposons de toutes les assurances nécessaires, notamment la garantie décennale. Chaque projet est couvert par nos assurances professionnelles pour votre tranquillité.
-                                    </p>
+                            <motion.div
+                                className="bg-gray-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 flex-shrink-0 w-[300px] sm:w-[400px]"
+                                whileHover={{ scale: 1.02 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <div className="flex items-start gap-4">
+                                    <span className="text-2xl">🛡️</span>
+                                    <div>
+                                        <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
+                                            Êtes-vous assurés pour tous les travaux ?
+                                        </h3>
+                                        <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
+                                            Oui, nous disposons de toutes les assurances nécessaires, notamment la garantie décennale. Chaque projet est couvert par nos assurances professionnelles pour votre tranquillité.
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        </motion.div>
+                            </motion.div>
 
-                        <motion.div
-                            className="bg-gray-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
-                            whileHover={{ scale: 1.02 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <div className="flex items-start gap-4">
-                                <span className="text-2xl">🏗️</span>
-                                <div>
-                                    <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
-                                        Comment se déroule un projet de rénovation ?
-                                    </h3>
-                                    <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
-                                        Nous commençons par une consultation gratuite pour comprendre vos besoins. Ensuite, nous établissons un devis détaillé, planifions les travaux, et assurons un suivi régulier tout au long du projet jusqu'à la réception finale.
-                                    </p>
+                            <motion.div
+                                className="bg-gray-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 flex-shrink-0 w-[300px] sm:w-[400px]"
+                                whileHover={{ scale: 1.02 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <div className="flex items-start gap-4">
+                                    <span className="text-2xl">🏗️</span>
+                                    <div>
+                                        <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
+                                            Comment se déroule un projet de rénovation ?
+                                        </h3>
+                                        <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
+                                            Nous commençons par une consultation gratuite pour comprendre vos besoins. Ensuite, nous établissons un devis détaillé, planifions les travaux, et assurons un suivi régulier tout au long du projet jusqu'à la réception finale.
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        </motion.div>
+                            </motion.div>
 
-                        <motion.div
-                            className="bg-gray-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
-                            whileHover={{ scale: 1.02 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <div className="flex items-start gap-4">
-                                <span className="text-2xl">💰</span>
-                                <div>
-                                    <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
-                                        Comment sont établis vos devis ?
-                                    </h3>
-                                    <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
-                                        Nos devis sont gratuits et détaillés. Après une visite sur site et l'évaluation précise de vos besoins, nous vous fournissons un devis transparent qui inclut tous les aspects du projet, sans frais cachés.
-                                    </p>
+                            <motion.div
+                                className="bg-gray-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 flex-shrink-0 w-[300px] sm:w-[400px]"
+                                whileHover={{ scale: 1.02 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <div className="flex items-start gap-4">
+                                    <span className="text-2xl">💰</span>
+                                    <div>
+                                        <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
+                                            Comment sont établis vos devis ?
+                                        </h3>
+                                        <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
+                                            Nos devis sont gratuits et détaillés. Après une visite sur site et l'évaluation précise de vos besoins, nous vous fournissons un devis transparent qui inclut tous les aspects du projet, sans frais cachés.
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        </motion.div>
+                            </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
