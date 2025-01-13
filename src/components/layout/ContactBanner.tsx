@@ -21,13 +21,11 @@ export default function ContactBanner() {
                         <h3 className="text-2xl font-light mb-4" style={{ color: theme.colors.text.primary }}>Contact</h3>
                         <div className="space-y-2" style={{ color: theme.colors.text.secondary }}>
                             <p className="hover:text-blue-600 transition-colors">
-                                <a href="tel:+33612345678">+33 6 12 34 56 78</a>
+                                <a href="tel:+33 6 98 20 81 68">+33 6 98 20 81 68</a>
                             </p>
                             <p className="hover:text-blue-600 transition-colors">
-                                <a href="mailto:contact@pourlinterieur.fr">contact@pourlinterieur.fr</a>
+                                <a href="mailto:samson.attia@gmail.com">samson.attia@gmail.com</a>
                             </p>
-                            <p>123 Avenue des Champs-Élysées</p>
-                            <p>75008 Paris, France</p>
                         </div>
                     </motion.div>
                     <motion.div
@@ -35,11 +33,10 @@ export default function ContactBanner() {
                         whileHover={{ scale: 1.02 }}
                         transition={{ duration: 0.3 }}
                     >
-                        <h3 className="text-2xl font-light mb-4" style={{ color: theme.colors.text.primary }}>Horaires</h3>
+                        <h3 className="text-2xl font-light mb-4" style={{ color: theme.colors.text.primary }}>Adresse</h3>
                         <div className="space-y-2" style={{ color: theme.colors.text.secondary }}>
-                            <p>Lundi - Vendredi: 9h - 18h</p>
-                            <p>Samedi: Sur rendez-vous</p>
-                            <p>Dimanche: Fermé</p>
+                            <p>88 boulevard Victor Hugo </p>
+                            <p>92200, Neuilly-sur-Seine, France</p>
                         </div>
                     </motion.div>
                     <motion.div

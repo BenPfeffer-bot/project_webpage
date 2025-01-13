@@ -30,29 +30,6 @@ const itemVariants = {
     }
 }
 
-const timeline = [
-    {
-        year: '2010',
-        title: 'Fondation',
-        description: 'Création de POUR L\'INTERIEUR avec une vision claire : offrir des services de rénovation d\'excellence.'
-    },
-    {
-        year: '2015',
-        title: 'Expansion',
-        description: 'Développement de l\'équipe et élargissement de notre gamme de services.'
-    },
-    {
-        year: '2020',
-        title: 'Innovation',
-        description: 'Adoption de nouvelles technologies et méthodes pour améliorer nos services.'
-    },
-    {
-        year: '2023',
-        title: 'Excellence Continue',
-        description: 'Poursuite de notre engagement pour la qualité et la satisfaction client.'
-    }
-]
-
 export default function QuiSommesNous() {
     const timelineRef = useRef(null)
     const isTimelineInView = useInView(timelineRef, { once: true, margin: "-100px" })
@@ -74,337 +51,197 @@ export default function QuiSommesNous() {
                 >
                     <Image
                         src="/team.JPG"
-                        alt="Notre équipe"
+                        alt="Pour L'intérieur"
                         fill
-                        className="object-cover object-center"
+                        className="object-cover"
                         priority
-                        sizes="(max-width: 640px) 100vw,
-                               (max-width: 768px) 100vw,
-                               100vw"
-                        quality={90}
                     />
-                    <div className="absolute inset-0" style={{ backgroundColor: theme.colors.overlay.dark }} />
+                    <div className="absolute inset-0 bg-black/40" />
                 </motion.div>
-                <div className="relative z-10 flex flex-col items-center justify-center h-full text-white px-4 sm:px-6 md:px-8">
-                    <motion.h1
-                        className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-extralight tracking-wide mb-4 sm:mb-6 md:mb-8 text-center"
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }}
+                <div className="relative h-full max-w-7xl mx-auto px-4 flex flex-col justify-center items-center text-center">
+                    <motion.span
+                        className="text-[#B5A642] text-xl md:text-2xl mb-4 font-light tracking-wider"
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.3, duration: 0.8 }}
                     >
                         Notre Histoire
+                    </motion.span>
+                    <motion.h1
+                        className="text-5xl md:text-6xl lg:text-7xl text-white font-extralight tracking-wide"
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.5, duration: 0.8 }}
+                    >
+                        Qui Sommes-Nous
                     </motion.h1>
-                    <motion.p
-                        className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-light tracking-wide mb-4 sm:mb-6 md:mb-8 text-center max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto"
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.2)' }}
-                    >
-                        Une passion pour l'excellence dans la rénovation
-                    </motion.p>
                 </div>
             </section>
 
-            {/* Director Section */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 mb-20 sm:mb-24 md:mb-32">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-start">
-                    <FadeIn>
-                        <motion.div
-                            className="sticky top-32 w-full"
-                            whileHover={{ scale: 1.02 }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            <div className="relative h-[500px] sm:h-[600px] md:h-[700px] rounded-lg overflow-hidden shadow-lg" style={{ boxShadow: theme.shadows.lg }}>
-                                <Image
-                                    src="/Portrait Samson.JPG"
-                                    alt="Portrait de Samson"
-                                    fill
-                                    className="object-cover object-center"
-                                    sizes="(max-width: 640px) 100vw,
-                                           (max-width: 1024px) 100vw,
-                                           50vw"
-                                    quality={90}
-                                />
-                                <motion.div
-                                    className="absolute inset-0"
-                                    initial={{ opacity: 0.8 }}
-                                    whileHover={{ opacity: 0.6 }}
-                                    transition={{ duration: 0.3 }}
-                                    style={{
-                                        background: `linear-gradient(to top, ${theme.colors.overlay.dark}, transparent 50%)`
-                                    }}
-                                >
-                                    <div className="absolute bottom-0 left-0 right-0 p-8">
-                                        <motion.h2
-                                            className="text-3xl font-light text-white mb-2"
-                                            whileHover={{ x: 10 }}
-                                            transition={{ duration: 0.3 }}
-                                        >
-                                            Samson Attia
-                                        </motion.h2>
-                                        <motion.p
-                                            className="text-xl text-white/90"
-                                            whileHover={{ x: 10 }}
-                                            transition={{ duration: 0.3, delay: 0.1 }}
-                                        >
-                                            Fondateur & Directeur
-                                        </motion.p>
-                                    </div>
-                                </motion.div>
+            {/* Company Description Section */}
+            <section className="max-w-7xl mx-auto px-4 mb-24">
+                <FadeIn>
+                    <div className="prose prose-lg max-w-none">
+                        <h2 className="text-4xl font-extralight mb-12 text-gray-800 tracking-wide">POUR L'INTÉRIEUR</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-[2fr,1fr] gap-12">
+                            <div>
+                                <p className="text-xl leading-relaxed mb-8 text-gray-700">
+                                    Bienvenue chez POUR L'INTÉRIEUR, entreprise spécialisée dans les travaux d'aménagement et de rénovation partielle ou totale d'appartements, de pavillons, de commerces et de bureaux.
+                                </p>
+                                <p className="text-xl leading-relaxed mb-8 text-gray-700">
+                                    Nous vous proposons des solutions et des offres adaptées et sur mesure qui présentent de nombreux avantages :
+                                </p>
+                                <ul className="list-none space-y-6 mb-8">
+                                    <li className="flex items-start space-x-4">
+                                        <span className="text-[#B5A642] text-2xl mt-1">•</span>
+                                        <span className="text-lg text-gray-700">Un interlocuteur unique, tant pour l'aspect technique que conceptuel</span>
+                                    </li>
+                                    <li className="flex items-start space-x-4">
+                                        <span className="text-[#B5A642] text-2xl mt-1">•</span>
+                                        <span className="text-lg text-gray-700">Une écoute attentive et conseils personnalisés en fonction du lieu, de vos besoins, de vos goûts et de vos envies</span>
+                                    </li>
+                                    <li className="flex items-start space-x-4">
+                                        <span className="text-[#B5A642] text-2xl mt-1">•</span>
+                                        <span className="text-lg text-gray-700">Une expertise dans l'agencement d'intérieur et dans l'optimisation des espaces, des volumes et des surfaces, pour une meilleure circulation et un plus grand confort</span>
+                                    </li>
+                                </ul>
                             </div>
-                        </motion.div>
-                    </FadeIn>
-                    <div className="space-y-8">
-                        <FadeIn delay={0.2}>
-                            <div className="space-y-6">
-                                <motion.h2
-                                    className="text-4xl font-light"
-                                    style={{ color: theme.colors.text.primary }}
-                                    whileHover={{ x: 10 }}
-                                    transition={{ duration: 0.3 }}
-                                >
-                                    Notre Vision
-                                </motion.h2>
-                                <motion.div
-                                    className="space-y-6 text-lg leading-relaxed"
-                                    style={{ color: theme.colors.text.secondary }}
-                                >
-                                    <p>
-                                        Samson Attia est un professionnel expérimenté dans la gestion de projets techniques et le développement commercial, avec une expertise particulière dans les domaines des courants forts et faibles, ainsi que dans l'urbanisation de Data Centers.
+                            <div className="bg-gray-50 p-8 rounded-xl border border-gray-100 shadow-sm">
+                                <h3 className="text-2xl font-light mb-6 text-gray-800">Nos Services</h3>
+                                <div className="space-y-4">
+                                    <p className="text-lg text-gray-700 border-l-2 border-[#B5A642] pl-4">
+                                        Nous assurons le conseil, la conception, la réalisation des plans, le suivi et le pilotage de vos travaux.
                                     </p>
-                                    <p>
-                                        Son parcours professionnel s'étend sur plus de trois décennies, au cours desquelles il a occupé des postes de direction et de gestion dans plusieurs entreprises renommées. Avec plus de 30 ans d'expérience, il a développé une expertise pointue en prospection de nouvelles affaires, en réponse aux appels d'offres et en soutenance de propositions.
+                                    <p className="text-lg text-gray-700 border-l-2 border-[#B5A642] pl-4">
+                                        Nous vous proposons du Home Staging, pour faciliter la vente de vos biens immobiliers.
                                     </p>
-                                    <p>
-                                        Au fil de sa carrière, Samson a su organiser et gérer des équipes de techniciens et d'ingénieurs, tout en pilotant des projets multi-techniques de grande envergure. Il a également mis en place des procédures administratives et qualitatives, assurant ainsi un suivi rigoureux des projets et de la politique commerciale en cohérence avec la stratégie des entreprises pour lesquelles il a travaillé.
-                                    </p>
-                                    <p>
-                                        Après avoir occupé plusieurs postes de direction au sein de grandes entreprises, Samson a décidé de donner une nouvelle orientation à sa carrière en se lançant dans l'entrepreneuriat. Fort de son expérience, il a fondé sa propre entreprise, POUR L'INTERIEUR, où il met à profit ses compétences pour offrir des services de rénovation globale.
-                                    </p>
-                                    <p>
-                                        Dans ce rôle, il s'occupe non seulement de la gestion des projets, mais aussi de l'ensemble des aspects techniques, administratifs et financiers, garantissant la qualité et la satisfaction de ses clients.
-                                    </p>
-                                </motion.div>
-                            </div>
-                            <div className="grid grid-cols-2 gap-8 mt-12">
-                                <motion.div
-                                    className="bg-white p-6 rounded-lg"
-                                    whileHover={{
-                                        scale: 1.05,
-                                        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
-                                    }}
-                                    transition={{ duration: 0.3 }}
-                                    style={{
-                                        boxShadow: theme.shadows.sm,
-                                        backgroundColor: theme.colors.background.secondary
-                                    }}
-                                >
-                                    <motion.div
-                                        className="w-12 h-12 rounded-full flex items-center justify-center mb-4"
-                                        whileHover={{ rotate: 360 }}
-                                        transition={{ duration: 0.8 }}
-                                        style={{ backgroundColor: theme.colors.navy.darkest }}
-                                    >
-                                        <span className="text-white text-xl">30</span>
-                                    </motion.div>
-                                    <h3 className="text-xl font-light mb-2" style={{ color: theme.colors.text.primary }}>Années d'Expérience</h3>
-                                    <p style={{ color: theme.colors.text.secondary }}>Dans la gestion de projets techniques</p>
-                                </motion.div>
-                                <motion.div
-                                    className="bg-white p-6 rounded-lg"
-                                    whileHover={{
-                                        scale: 1.05,
-                                        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
-                                    }}
-                                    transition={{ duration: 0.3 }}
-                                    style={{
-                                        boxShadow: theme.shadows.sm,
-                                        backgroundColor: theme.colors.background.secondary
-                                    }}
-                                >
-                                    <motion.div
-                                        className="w-12 h-12 rounded-full flex items-center justify-center mb-4"
-                                        whileHover={{ rotate: 360 }}
-                                        transition={{ duration: 0.8 }}
-                                        style={{ backgroundColor: theme.colors.navy.darkest }}
-                                    >
-                                        <span className="text-white text-xl">∞</span>
-                                    </motion.div>
-                                    <h3 className="text-xl font-light mb-2" style={{ color: theme.colors.text.primary }}>Vision</h3>
-                                    <p style={{ color: theme.colors.text.secondary }}>Excellence et innovation continue</p>
-                                </motion.div>
-                            </div>
-                        </FadeIn>
-                    </div>
-                </div>
-            </section>
-
-            {/* Timeline Section */}
-            <section className="py-20 bg-gray-50" ref={timelineRef}>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                    <FadeIn>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-center mb-4">
-                            Notre Histoire
-                        </h2>
-                        <p className="text-center text-lg mb-16" style={{ color: theme.colors.text.secondary }}>
-                            Plus d'une décennie d'excellence dans la rénovation
-                        </p>
-                    </FadeIn>
-
-                    <motion.div
-                        className="relative"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate={isTimelineInView ? "visible" : "hidden"}
-                    >
-                        <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200" />
-                        {timeline.map((item, index) => (
-                            <motion.div
-                                key={item.year}
-                                variants={itemVariants}
-                                className={`relative flex items-center gap-8 mb-12 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
-                            >
-                                <div className={`w-1/2 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
-                                    <h3 className="text-2xl font-light mb-2" style={{ color: theme.colors.text.primary }}>
-                                        {item.year}
-                                    </h3>
-                                    <h4 className="text-xl mb-2" style={{ color: theme.colors.text.primary }}>
-                                        {item.title}
-                                    </h4>
-                                    <p style={{ color: theme.colors.text.secondary }}>
-                                        {item.description}
+                                    <p className="text-lg text-gray-700 border-l-2 border-[#B5A642] pl-4">
+                                        Nous intervenons sur Paris, l'Ile de France et à l'étranger pour les particuliers et les professionnels.
                                     </p>
                                 </div>
-                                <div className="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-navy-dark rounded-full" />
-                                <div className="w-1/2" />
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* Team Section */}
-            <section className="bg-gray-50 py-20" style={{ backgroundColor: theme.colors.background.secondary }}>
-                <div className="max-w-7xl mx-auto px-4">
-                    <FadeIn>
-                        <motion.h2
-                            className="text-4xl font-light mb-16 text-center"
-                            style={{ color: theme.colors.text.primary }}
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            Notre Équipe
-                        </motion.h2>
-                    </FadeIn>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
-                        <FadeIn>
-                            <motion.div
-                                className="relative h-[400px] rounded-lg overflow-hidden shadow-lg"
-                                whileHover={{ scale: 1.03 }}
-                                transition={{ duration: 0.5 }}
-                                style={{ boxShadow: theme.shadows.lg }}
-                            >
-                                <Image
-                                    src="/renov_4.JPG"
-                                    alt="L'équipe au travail"
-                                    fill
-                                    className="object-cover object-center"
-                                    sizes="(max-width: 1024px) 100vw,
-                                           50vw"
-                                    quality={85}
-                                />
-                                <motion.div
-                                    className="absolute inset-0"
-                                    initial={{ opacity: 0.8 }}
-                                    whileHover={{ opacity: 0.6 }}
-                                    transition={{ duration: 0.3 }}
-                                    style={{
-                                        background: `linear-gradient(to top, ${theme.colors.overlay.dark}, transparent 50%)`
-                                    }}
-                                >
-                                    <div className="absolute bottom-0 left-0 right-0 p-8">
-                                        <motion.h3
-                                            className="text-2xl font-light text-white mb-2"
-                                            whileHover={{ x: 10 }}
-                                            transition={{ duration: 0.3 }}
-                                        >
-                                            Expertise
-                                        </motion.h3>
-                                        <motion.p
-                                            className="text-white/90"
-                                            whileHover={{ x: 10 }}
-                                            transition={{ duration: 0.3, delay: 0.1 }}
-                                        >
-                                            Une équipe qualifiée à votre service
-                                        </motion.p>
-                                    </div>
-                                </motion.div>
-                            </motion.div>
-                        </FadeIn>
-                        <FadeIn delay={0.2}>
-                            <motion.div
-                                className="relative h-[400px] rounded-lg overflow-hidden shadow-lg"
-                                whileHover={{ scale: 1.03 }}
-                                transition={{ duration: 0.5 }}
-                                style={{ boxShadow: theme.shadows.lg }}
-                            >
-                                <Image
-                                    src="/renov_5.jpeg"
-                                    alt="L'équipe en action"
-                                    fill
-                                    className="object-cover object-center"
-                                    sizes="(max-width: 1024px) 100vw,
-                                           50vw"
-                                    quality={85}
-                                />
-                                <motion.div
-                                    className="absolute inset-0"
-                                    initial={{ opacity: 0.8 }}
-                                    whileHover={{ opacity: 0.6 }}
-                                    transition={{ duration: 0.3 }}
-                                    style={{
-                                        background: `linear-gradient(to top, ${theme.colors.overlay.dark}, transparent 50%)`
-                                    }}
-                                >
-                                    <div className="absolute bottom-0 left-0 right-0 p-8">
-                                        <motion.h3
-                                            className="text-2xl font-light text-white mb-2"
-                                            whileHover={{ x: 10 }}
-                                            transition={{ duration: 0.3 }}
-                                        >
-                                            Passion
-                                        </motion.h3>
-                                        <motion.p
-                                            className="text-white/90"
-                                            whileHover={{ x: 10 }}
-                                            transition={{ duration: 0.3, delay: 0.1 }}
-                                        >
-                                            Un engagement quotidien pour l'excellence
-                                        </motion.p>
-                                    </div>
-                                </motion.div>
-                            </motion.div>
-                        </FadeIn>
+                            </div>
+                        </div>
                     </div>
-                    <FadeIn>
-                        <motion.div
-                            className="text-center max-w-3xl mx-auto"
-                            whileHover={{ scale: 1.02 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <p className="text-xl leading-relaxed" style={{ color: theme.colors.text.secondary }}>
-                                Notre équipe de professionnels qualifiés partage la même passion pour l'excellence
-                                et le souci du détail. Ensemble, nous mettons notre expertise au service de vos projets
-                                pour créer des espaces qui vous ressemblent.
-                            </p>
-                        </motion.div>
-                    </FadeIn>
-                </div>
+                </FadeIn>
             </section>
 
-            {/* Contact Banner */}
+            {/* Founder Section */}
+            <section className="max-w-7xl mx-auto px-4 mb-24">
+                <FadeIn>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+                        <div className="relative aspect-[3/4] w-full">
+                            <Image
+                                src="/Portrait Samson.JPG"
+                                alt="Samson Attia"
+                                fill
+                                className="object-cover rounded-xl shadow-xl"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl" />
+                        </div>
+                        <div className="prose prose-lg max-w-none">
+                            <h2 className="text-4xl font-extralight mb-8 text-gray-800 tracking-wide">Samson Attia</h2>
+                            <div className="space-y-8">
+                                <p className="text-xl leading-relaxed text-gray-700">
+                                    Samson Attia est un professionnel expérimenté dans la gestion de projets techniques et le développement commercial, avec une expertise particulière dans les domaines des courants forts et faibles, ainsi que dans l'urbanisation de Data Centers.
+                                </p>
+                                <p className="text-xl leading-relaxed text-gray-700">
+                                    Avec plus de 30 ans d'expérience, il a développé une expertise pointue en prospection de nouvelles affaires, en réponse aux appels d'offres et en soutenance de propositions. Au fil de sa carrière, Samson a su organiser et gérer des équipes de techniciens et d'ingénieurs, tout en pilotant des projets multi-techniques de grande envergure.
+                                </p>
+                                <p className="text-xl leading-relaxed text-gray-700">
+                                    Il a également mis en place des procédures administratives et qualitatives, assurant ainsi un suivi rigoureux des projets et de la politique commerciale en cohérence avec la stratégie des entreprises pour lesquelles il a travaillé. Il incarne l'esprit entrepreneurial, alliant une solide expérience technique à une vision stratégique, pour mener à bien des projets de rénovation ambitieux.
+                                </p>
+                                <p className="text-xl leading-relaxed text-gray-700">
+                                    Après avoir occupé plusieurs postes de direction au sein de grandes entreprises, Samson a décidé de donner une nouvelle orientation à sa carrière en se lançant dans l'entrepreneuriat. Fort de son expérience, il a fondé sa propre entreprise, POUR L'INTÉRIEUR, où il met à profit ses compétences pour offrir des services de rénovation globale. Dans ce rôle, il s'occupe non seulement de la gestion des projets, mais aussi de l'ensemble des aspects techniques, administratifs et financiers, garantissant la qualité et la satisfaction de ses clients.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Statistics Boxes */}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+                        <motion.div
+                            className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden group"
+                            whileHover={{
+                                scale: 1.03,
+                                boxShadow: "0 25px 35px -5px rgba(0, 0, 0, 0.1), 0 10px 15px -5px rgba(0, 0, 0, 0.05)"
+                            }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
+                        >
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#B5A642] to-[#B5A642]/60" />
+                            <motion.div
+                                className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-gradient-to-br from-[#B5A642] to-[#B5A642]/80 group-hover:shadow-lg transform group-hover:-translate-y-1 transition-all duration-300"
+                                whileHover={{ rotate: 360 }}
+                                transition={{ duration: 1.2 }}
+                            >
+                                <span className="text-white text-2xl font-light">30+</span>
+                            </motion.div>
+                            <h3 className="text-2xl font-light mb-3 text-gray-800">Années d'Expérience</h3>
+                            <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Dans la gestion de projets techniques</p>
+                        </motion.div>
+
+                        <motion.div
+                            className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden group"
+                            whileHover={{
+                                scale: 1.03,
+                                boxShadow: "0 25px 35px -5px rgba(0, 0, 0, 0.1), 0 10px 15px -5px rgba(0, 0, 0, 0.05)"
+                            }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
+                        >
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#B5A642] to-[#B5A642]/60" />
+                            <motion.div
+                                className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-gradient-to-br from-[#B5A642] to-[#B5A642]/80 group-hover:shadow-lg transform group-hover:-translate-y-1 transition-all duration-300"
+                                whileHover={{ rotate: 360 }}
+                                transition={{ duration: 1.2 }}
+                            >
+                                <span className="text-white text-2xl font-light">100+</span>
+                            </motion.div>
+                            <h3 className="text-2xl font-light mb-3 text-gray-800">Projets Réalisés</h3>
+                            <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Rénovations et aménagements</p>
+                        </motion.div>
+
+                        <motion.div
+                            className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden group"
+                            whileHover={{
+                                scale: 1.03,
+                                boxShadow: "0 25px 35px -5px rgba(0, 0, 0, 0.1), 0 10px 15px -5px rgba(0, 0, 0, 0.05)"
+                            }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
+                        >
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#B5A642] to-[#B5A642]/60" />
+                            <motion.div
+                                className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-gradient-to-br from-[#B5A642] to-[#B5A642]/80 group-hover:shadow-lg transform group-hover:-translate-y-1 transition-all duration-300"
+                                whileHover={{ rotate: 360 }}
+                                transition={{ duration: 1.2 }}
+                            >
+                                <span className="text-white text-3xl">★</span>
+                            </motion.div>
+                            <h3 className="text-2xl font-light mb-3 text-gray-800">Excellence</h3>
+                            <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Qualité et satisfaction client</p>
+                        </motion.div>
+
+                        <motion.div
+                            className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden group"
+                            whileHover={{
+                                scale: 1.03,
+                                boxShadow: "0 25px 35px -5px rgba(0, 0, 0, 0.1), 0 10px 15px -5px rgba(0, 0, 0, 0.05)"
+                            }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
+                        >
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#B5A642] to-[#B5A642]/60" />
+                            <motion.div
+                                className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-gradient-to-br from-[#B5A642] to-[#B5A642]/80 group-hover:shadow-lg transform group-hover:-translate-y-1 transition-all duration-300"
+                                whileHover={{ rotate: 360 }}
+                                transition={{ duration: 1.2 }}
+                            >
+                                <span className="text-white text-3xl">∞</span>
+                            </motion.div>
+                            <h3 className="text-2xl font-light mb-3 text-gray-800">Vision</h3>
+                            <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Innovation continue</p>
+                        </motion.div>
+                    </div>
+                </FadeIn>
+            </section>
+
             <ContactBanner />
         </motion.main>
     )

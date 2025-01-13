@@ -49,8 +49,7 @@ export default function Header() {
                             >
                                 <Link
                                     href={link.href}
-                                    className={`hover-underline ${isScrolled ? 'text-black' : 'text-white'
-                                        }`}
+                                    className="text-[#B5A642] hover:text-[#B5A642]/80 transition-colors duration-200"
                                 >
                                     {link.label}
                                 </Link>
@@ -92,8 +91,7 @@ export default function Header() {
                                     >
                                         <Link
                                             href={link.href}
-                                            className={`block ${isScrolled ? 'text-black' : 'text-white'
-                                                }`}
+                                            className="block text-[#B5A642] hover:text-[#B5A642]/80 transition-colors duration-200"
                                             onClick={() => setIsMobileMenuOpen(false)}
                                         >
                                             {link.label}
