@@ -322,6 +322,7 @@ export default function Home() {
                                     <Button
                                         onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                                         variant="outline"
+                                        className="text-white border-white hover:bg-white hover:text-black"
                                     >
                                         Nous contacter
                                     </Button>

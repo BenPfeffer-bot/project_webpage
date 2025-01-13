@@ -75,12 +75,12 @@ const projects = [
     }
 ]
 
-const statistics = [
-    { number: '150+', label: 'Projets Réalisés' },
-    { number: '12', label: 'Années d\'Expérience' },
-    { number: '98%', label: 'Clients Satisfaits' },
-    { number: '45', label: 'Experts Qualifiés' }
-]
+// const statistics = [
+//     { number: '150+', label: 'Projets Réalisés' },
+//     { number: '12', label: 'Années d\'Expérience' },
+//     { number: '98%', label: 'Clients Satisfaits' },
+//     { number: '45', label: 'Experts Qualifiés' }
+// ]
 
 const processSteps = [
     {
@@ -272,7 +272,7 @@ export default function Realisations() {
                 </div>
             </section>
 
-            {/* Statistics Section */}
+            {/* Statistics Section
             <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-[#B5A642]/5 pattern-grid-lg opacity-30" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -293,11 +293,11 @@ export default function Realisations() {
                                 <p className="text-base sm:text-lg text-[#1B1B3A]/70">
                                     {stat.label}
                                 </p>
-                            </motion.div>
+                            </motion.div> 
                         ))}
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* Category Filter */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12 md:mb-16">

@@ -1,7 +1,7 @@
 'use client'
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useMotionValue, animate, useTransform } from 'framer-motion'
 import FadeIn from '@/components/animations/FadeIn'
 import Button from '@/components/ui/Button'
 import Modal from '@/components/ui/Modal'
@@ -78,16 +78,260 @@ const services = [
     }
 ]
 
+const faqCategories = ['Tous', 'Travaux', 'Devis', 'Assurance', 'Délais']
+
+const faqs = [
+    {
+        icon: '🕒',
+        question: 'Combien de temps durent généralement les travaux ?',
+        answer: 'La durée des travaux varie selon l\'ampleur du projet. Une rénovation complète peut prendre de 2 à 6 mois, tandis que des travaux spécifiques peuvent être réalisés en quelques semaines. Nous établissons un planning détaillé lors du devis.',
+        category: 'Délais'
+    },
+    {
+        icon: '🛡️',
+        question: 'Êtes-vous assurés pour tous les travaux ?',
+        answer: 'Oui, nous disposons de toutes les assurances nécessaires, notamment la garantie décennale. Chaque projet est couvert par nos assurances professionnelles pour votre tranquillité.',
+        category: 'Assurance'
+    },
+    {
+        icon: '🏗️',
+        question: 'Comment se déroule un projet de rénovation ?',
+        answer: 'Nous commençons par une consultation gratuite pour comprendre vos besoins. Ensuite, nous établissons un devis détaillé, planifions les travaux, et assurons un suivi régulier tout au long du projet jusqu\'à la réception finale.',
+        category: 'Travaux'
+    },
+    {
+        icon: '💰',
+        question: 'Comment sont établis vos devis ?',
+        answer: 'Nos devis sont gratuits et détaillés. Après une visite sur site et l\'évaluation précise de vos besoins, nous vous fournissons un devis transparent qui inclut tous les aspects du projet, sans frais cachés.',
+        category: 'Devis'
+    },
+    {
+        icon: '📋',
+        question: 'Quels types de garanties proposez-vous ?',
+        answer: 'Nous offrons plusieurs garanties selon le type de travaux : garantie décennale pour les travaux structurels, garantie biennale pour les équipements, et garantie de parfait achèvement d\'un an pour l\'ensemble des travaux.',
+        category: 'Assurance'
+    },
+    {
+        icon: '⏱️',
+        question: 'Quel est le délai moyen pour obtenir un devis ?',
+        answer: 'Après la visite technique, vous recevez votre devis détaillé sous 48 à 72 heures. Pour les projets complexes nécessitant des études spécifiques, le délai peut être de 5 à 7 jours ouvrés.',
+        category: 'Devis'
+    }
+]
+
+// Enhanced FAQ Accordion component
+const FAQAccordion = ({ faq, isOpen, onToggle, index }: {
+    faq: typeof faqs[0],
+    isOpen: boolean,
+    onToggle: () => void,
+    index: number
+}) => {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+            className="group"
+        >
+            <motion.div
+                className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 transition-all duration-300 group-hover:shadow-xl"
+                animate={{
+                    scale: isOpen ? 1.02 : 1,
+                    backgroundColor: isOpen ? "rgb(249, 250, 251)" : "white"
+                }}
+            >
+                <motion.button
+                    className="w-full px-6 py-4 flex items-center justify-between gap-4 transition-colors duration-300"
+                    onClick={onToggle}
+                    whileHover={{ scale: 1.005 }}
+                    whileTap={{ scale: 0.995 }}
+                >
+                    <div className="flex items-center gap-4">
+                        <motion.span
+                            className="text-2xl"
+                            animate={{
+                                scale: isOpen ? 1.2 : 1,
+                                rotate: isOpen ? 360 : 0
+                            }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            {faq.icon}
+                        </motion.span>
+                        <div>
+                            <h3 className="text-lg font-medium text-left">{faq.question}</h3>
+                            <span className="text-sm text-[#B5A642]">{faq.category}</span>
+                        </div>
+                    </div>
+                    <motion.div
+                        animate={{ rotate: isOpen ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <svg
+                            className={`w-6 h-6 transition-colors duration-300 ${isOpen ? 'text-[#B5A642]' : 'text-gray-500'}`}
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M19 9l-7 7-7-7"
+                            />
+                        </svg>
+                    </motion.div>
+                </motion.button>
+                <motion.div
+                    initial={false}
+                    animate={{
+                        height: isOpen ? "auto" : 0,
+                        opacity: isOpen ? 1 : 0
+                    }}
+                    transition={{
+                        duration: 0.3,
+                        ease: "easeInOut"
+                    }}
+                    className="overflow-hidden"
+                >
+                    <motion.div
+                        className="px-6 pb-4 text-gray-600"
+                        initial={{ y: -20, opacity: 0 }}
+                        animate={isOpen ? { y: 0, opacity: 1 } : {}}
+                        transition={{ duration: 0.3, delay: 0.1 }}
+                    >
+                        {faq.answer}
+                    </motion.div>
+                </motion.div>
+            </motion.div>
+        </motion.div>
+    )
+}
+
+// Add SearchBar component
+const SearchBar = ({ value, onChange }: { value: string, onChange: (value: string) => void }) => {
+    return (
+        <motion.div
+            className="relative max-w-xl mx-auto mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+        >
+            <input
+                type="text"
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                placeholder="Rechercher une question..."
+                className="w-full px-4 py-3 pl-12 rounded-xl border border-gray-200 focus:border-[#B5A642] focus:ring-2 focus:ring-[#B5A642]/20 outline-none transition-all duration-300"
+            />
+            <svg
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+            >
+                <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+            </svg>
+        </motion.div>
+    )
+}
+
+// Add ServiceCard component for reusability
+const ServiceCard = ({
+    service,
+    index,
+    onQuoteRequest,
+    className = ""
+}: {
+    service: typeof services[0],
+    index: number,
+    onQuoteRequest: (title: string) => void,
+    className?: string
+}) => {
+    return (
+        <motion.div
+            className={className}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+        >
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden group border border-gray-100">
+                <div className="relative h-64">
+                    <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <h3 className="absolute bottom-4 left-4 text-2xl text-white font-light tracking-wide">
+                        {service.title}
+                    </h3>
+                </div>
+                <div className="p-6">
+                    <p className="text-gray-600 mb-4">{service.description}</p>
+                    <div className="flex flex-wrap gap-2 mb-6">
+                        {service.features.map((feature) => (
+                            <span
+                                key={feature}
+                                className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm"
+                            >
+                                {feature}
+                            </span>
+                        ))}
+                    </div>
+                    <Button
+                        onClick={() => onQuoteRequest(service.title)}
+                        className="w-full"
+                    >
+                        Demander un devis
+                    </Button>
+                </div>
+            </div>
+        </motion.div>
+    )
+}
+
 export default function Services() {
     const [selectedCategory, setSelectedCategory] = useState('all')
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedService, setSelectedService] = useState('')
     const servicesRef = useRef(null)
     const isServicesInView = useInView(servicesRef, { once: true, margin: "-100px" })
+    const [openFAQ, setOpenFAQ] = useState<number | null>(null)
+    const [searchQuery, setSearchQuery] = useState('')
+    const [selectedFAQCategory, setSelectedFAQCategory] = useState('Tous')
 
     const filteredServices = selectedCategory === 'all'
         ? services
         : services.filter(service => service.category === selectedCategory)
+
+    const [width, setWidth] = useState(0)
+    const motionValue = useMotionValue(0)
+
+    useEffect(() => {
+        const calculateWidth = () => {
+            const serviceWidth = 400 // width of each service card
+            const gap = 32 // gap between cards
+            const totalWidth = (serviceWidth + gap) * filteredServices.length
+            setWidth(totalWidth)
+        }
+
+        calculateWidth()
+        window.addEventListener('resize', calculateWidth)
+        return () => window.removeEventListener('resize', calculateWidth)
+    }, [filteredServices])
+
+    const filteredFAQs = faqs.filter(faq => {
+        const matchesSearch = faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
+        const matchesCategory = selectedFAQCategory === 'Tous' || faq.category === selectedFAQCategory
+        return matchesSearch && matchesCategory
+    })
 
     const handleQuoteRequest = (serviceName: string) => {
         setSelectedService(serviceName)
@@ -164,50 +408,71 @@ export default function Services() {
             </section>
 
             {/* Services Grid */}
-            <section ref={servicesRef} className="max-w-7xl mx-auto px-4 mb-24">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {filteredServices.map((service, index) => (
+            <section ref={servicesRef} className="max-w-7xl mx-auto px-4 mb-24 overflow-hidden">
+                {selectedCategory === 'all' ? (
+                    // Sliding view for "Tous les Services"
+                    <div className="relative">
                         <motion.div
-                            key={service.title}
-                            className="bg-white rounded-xl shadow-lg overflow-hidden group"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={isServicesInView ? { opacity: 1, y: 0 } : {}}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            className="flex gap-8"
+                            animate={{
+                                x: [-width / 2, 0],
+                            }}
+                            transition={{
+                                x: {
+                                    repeat: Infinity,
+                                    duration: 50,
+                                    ease: "linear",
+                                }
+                            }}
+                            onHoverStart={() => {
+                                const controls = animate(motionValue, 0, {
+                                    duration: 0.5,
+                                });
+                                return () => controls.stop();
+                            }}
+                            onHoverEnd={() => {
+                                const controls = animate(motionValue, -width / 2, {
+                                    duration: 50,
+                                    ease: "linear",
+                                });
+                                return () => controls.stop();
+                            }}
                         >
-                            <div className="relative h-64">
-                                <Image
-                                    src={service.image}
-                                    alt={service.title}
-                                    fill
-                                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            {/* First set of services */}
+                            {filteredServices.map((service, index) => (
+                                <ServiceCard
+                                    key={`first-${service.title}`}
+                                    service={service}
+                                    index={index}
+                                    onQuoteRequest={handleQuoteRequest}
+                                    className="flex-shrink-0 w-[400px]"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                                <h3 className="absolute bottom-4 left-4 text-2xl text-white font-light tracking-wide">
-                                    {service.title}
-                                </h3>
-                            </div>
-                            <div className="p-6">
-                                <p className="text-gray-600 mb-4">{service.description}</p>
-                                <div className="flex flex-wrap gap-2 mb-6">
-                                    {service.features.map((feature) => (
-                                        <span
-                                            key={feature}
-                                            className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm"
-                                        >
-                                            {feature}
-                                        </span>
-                                    ))}
-                                </div>
-                                <Button
-                                    onClick={() => handleQuoteRequest(service.title)}
-                                    className="w-full"
-                                >
-                                    Demander un devis
-                                </Button>
-                            </div>
+                            ))}
+                            {/* Second set of services for seamless loop */}
+                            {filteredServices.map((service, index) => (
+                                <ServiceCard
+                                    key={`second-${service.title}`}
+                                    service={service}
+                                    index={index}
+                                    onQuoteRequest={handleQuoteRequest}
+                                    className="flex-shrink-0 w-[400px]"
+                                />
+                            ))}
                         </motion.div>
-                    ))}
-                </div>
+                    </div>
+                ) : (
+                    // Fixed grid for specific categories
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {filteredServices.map((service, index) => (
+                            <ServiceCard
+                                key={service.title}
+                                service={service}
+                                index={index}
+                                onQuoteRequest={handleQuoteRequest}
+                            />
+                        ))}
+                    </div>
+                )}
             </section>
 
             {/* Nos Engagements Section */}
@@ -333,86 +598,54 @@ export default function Services() {
                                 animate={{ y: 0, opacity: 1 }}
                                 transition={{ delay: 0.2, duration: 0.8 }}
                             >
-                                Tout ce que vous devez savoir sur nos services 😊
+                                Tout ce que vous devez savoir sur nos services
                             </motion.p>
                         </div>
                     </FadeIn>
 
-                    <div className="max-w-4xl mx-auto space-y-6">
-                        <div className="flex overflow-x-auto gap-6 hide-scrollbar pb-4">
-                            <motion.div
-                                className="bg-gray-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 flex-shrink-0 w-[300px] sm:w-[400px]"
-                                whileHover={{ scale: 1.02 }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                <div className="flex items-start gap-4">
-                                    <span className="text-2xl">🕒</span>
-                                    <div>
-                                        <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
-                                            Combien de temps durent généralement les travaux ?
-                                        </h3>
-                                        <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
-                                            La durée des travaux varie selon l'ampleur du projet. Une rénovation complète peut prendre de 2 à 6 mois, tandis que des travaux spécifiques peuvent être réalisés en quelques semaines. Nous établissons un planning détaillé lors du devis.
-                                        </p>
-                                    </div>
-                                </div>
-                            </motion.div>
+                    <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
-                            <motion.div
-                                className="bg-gray-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 flex-shrink-0 w-[300px] sm:w-[400px]"
-                                whileHover={{ scale: 1.02 }}
-                                transition={{ duration: 0.3 }}
+                    <div className="flex justify-center gap-2 mb-8 overflow-x-auto pb-2">
+                        {faqCategories.map((category) => (
+                            <motion.button
+                                key={category}
+                                onClick={() => setSelectedFAQCategory(category)}
+                                className={`px-4 py-2 rounded-full text-sm transition-all duration-300 whitespace-nowrap ${selectedFAQCategory === category
+                                    ? 'bg-[#B5A642] text-white shadow-lg'
+                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                    }`}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                             >
-                                <div className="flex items-start gap-4">
-                                    <span className="text-2xl">🛡️</span>
-                                    <div>
-                                        <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
-                                            Êtes-vous assurés pour tous les travaux ?
-                                        </h3>
-                                        <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
-                                            Oui, nous disposons de toutes les assurances nécessaires, notamment la garantie décennale. Chaque projet est couvert par nos assurances professionnelles pour votre tranquillité.
-                                        </p>
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            <motion.div
-                                className="bg-gray-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 flex-shrink-0 w-[300px] sm:w-[400px]"
-                                whileHover={{ scale: 1.02 }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                <div className="flex items-start gap-4">
-                                    <span className="text-2xl">🏗️</span>
-                                    <div>
-                                        <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
-                                            Comment se déroule un projet de rénovation ?
-                                        </h3>
-                                        <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
-                                            Nous commençons par une consultation gratuite pour comprendre vos besoins. Ensuite, nous établissons un devis détaillé, planifions les travaux, et assurons un suivi régulier tout au long du projet jusqu'à la réception finale.
-                                        </p>
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            <motion.div
-                                className="bg-gray-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 flex-shrink-0 w-[300px] sm:w-[400px]"
-                                whileHover={{ scale: 1.02 }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                <div className="flex items-start gap-4">
-                                    <span className="text-2xl">💰</span>
-                                    <div>
-                                        <h3 className="text-xl sm:text-2xl font-light mb-3 text-[#1B1B3A]">
-                                            Comment sont établis vos devis ?
-                                        </h3>
-                                        <p className="text-sm sm:text-base text-[#1B1B3A]/80 leading-relaxed">
-                                            Nos devis sont gratuits et détaillés. Après une visite sur site et l'évaluation précise de vos besoins, nous vous fournissons un devis transparent qui inclut tous les aspects du projet, sans frais cachés.
-                                        </p>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        </div>
+                                {category}
+                            </motion.button>
+                        ))}
                     </div>
+
+                    <motion.div
+                        className="max-w-3xl mx-auto space-y-4"
+                        layout
+                    >
+                        {filteredFAQs.length > 0 ? (
+                            filteredFAQs.map((faq, index) => (
+                                <FAQAccordion
+                                    key={index}
+                                    faq={faq}
+                                    isOpen={openFAQ === index}
+                                    onToggle={() => setOpenFAQ(openFAQ === index ? null : index)}
+                                    index={index}
+                                />
+                            ))
+                        ) : (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="text-center py-8 text-gray-500"
+                            >
+                                Aucune question ne correspond à votre recherche
+                            </motion.div>
+                        )}
+                    </motion.div>
                 </div>
             </section>
 
