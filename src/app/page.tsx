@@ -298,7 +298,7 @@ export default function Home() {
                     <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4">
                         <ScrollAnimation variant="bounce">
                             <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold mb-6 text-center">
-                                Pour L'Intérieur
+                                POUR L'INTÉRIEUR
                             </h1>
                             <p className="text-lg sm:text-2xl md:text-3xl mb-12 text-center max-w-3xl mx-auto">
                                 Experts en rénovation et architecture d'intérieur à Paris

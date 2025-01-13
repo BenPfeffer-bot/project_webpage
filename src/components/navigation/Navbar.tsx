@@ -102,7 +102,7 @@ export default function Navbar() {
                                     whileHover={{ scale: 1.05 }}
                                     transition={{ duration: 0.2 }}
                                 >
-                                    Pour L'intérieur
+                                    POUR L'INTÉRIEUR
                                 </motion.span>
                             </Link>
 
