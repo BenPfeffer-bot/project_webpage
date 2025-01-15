@@ -301,7 +301,7 @@ export default function Home() {
                                 POUR L'INTÉRIEUR
                             </h1>
                             <p className="text-lg sm:text-2xl md:text-3xl mb-12 text-center max-w-3xl mx-auto">
-                                Experts en rénovation et architecture d'intérieur à Paris
+                                Experts en rénovation et architecture d'intérieur
                             </p>
                             <div className="flex flex-wrap justify-center gap-4">
                                 <motion.div
@@ -354,7 +354,7 @@ export default function Home() {
                                     <ParallaxScroll offset={20}>
                                         <div className="relative h-[300px]">
                                             <Image
-                                                src="/moulure.jpeg"
+                                                src="/samson_team .jpeg"
                                                 alt="Interior Design"
                                                 fill
                                                 className="object-cover rounded-lg"
@@ -366,7 +366,7 @@ export default function Home() {
                                     <ParallaxScroll offset={40}>
                                         <div className="relative h-[300px] mt-8">
                                             <Image
-                                                src="/peinture.jpeg"
+                                                src="/team_2.jpeg"
                                                 alt="Interior Design"
                                                 fill
                                                 className="object-cover rounded-lg"
